@@ -1,9 +1,9 @@
 import React from "react";
 
-class RequestAppointment extends React.Component {
+class RequestAppointmentBar extends React.Component {
   render() {
     return <div>Request Appointment Component</div>;
   }
 }
 
-export default RequestAppointment;
+export default RequestAppointmentBar;
