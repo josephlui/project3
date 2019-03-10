@@ -6,11 +6,19 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   userId: { type: String, required: true , unique: true},
   date: { type: Date, default: Date.now },
-  
-  approvedUserList: [
+  name: { type: String, required: true},
+  approverList: [
     {
       type: Schema.Types.ObjectId,
-      ref: "User"
+      ref: "User" , 
+      unique: false
+    }
+  ],
+  appointmentBookingList: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Appointment",
+      unique: false
     }
   ]
 });
