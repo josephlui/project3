@@ -1,17 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <nav className="teal lighten-1">
       <div className="nav-wrapper">
-
         <a href="#about" className="brand-logo left">
           Project 3
         </a>
         <a
           href="#about"
-
           data-activates="mobile-demo"
           className="button-collapse right"
         >
@@ -19,7 +16,6 @@ const Navbar = () => {
         </a>
         <ul id="mobile-demo" className="right hide-on-med-and-down">
           <li>
-
             <a href="#about">About Us</a>
           </li>
           <li>
@@ -33,7 +29,6 @@ const Navbar = () => {
           </li>
           <li>
             <a href="#about">Create Account</a>
-
           </li>
         </ul>
       </div>
