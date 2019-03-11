@@ -25,12 +25,12 @@ const BlogPost = () => {
           </div>
           <div className="footer-content">
             <i className="material-icons">chat bubble outline</i>
-            <a href="">6</a>
+            <a href="#about">6</a>
           </div>
         </div>
       </div>
       <div className="read-more">
-        <a href="">Read more</a>
+        <a href="#about">Read more</a>
       </div>
     </div>
   );

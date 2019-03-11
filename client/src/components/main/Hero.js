@@ -21,10 +21,12 @@ const Hero = () => {
             Joseph, Tahreem, Saumil, and Judy
           </p>
 
-          <a href="" className="btn waves-light waves-effect m-r-16">
+          <a href="#about" className="btn waves-light waves-effect m-r-16">
             Log In
           </a>
-          <a className="btn waves-light waves-effect">Sign Up</a>
+          <a href="#about" className="btn waves-light waves-effect">
+            Sign Up
+          </a>
         </div>
       </div>
     </section>
