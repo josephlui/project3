@@ -1,5 +1,5 @@
 import React from "react";
-import meadow from "../img/meadow.jpg";
+import meadow from "./meadow.jpg";
 
 const Hero = () => {
   return (
@@ -21,7 +21,9 @@ const Hero = () => {
             Joseph, Tahreem, Saumil, and Judy
           </p>
 
-          <a className="btn waves-light waves-effect m-r-16">Log In</a>
+          <a href="" className="btn waves-light waves-effect m-r-16">
+            Log In
+          </a>
           <a className="btn waves-light waves-effect">Sign Up</a>
         </div>
       </div>
