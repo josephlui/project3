@@ -11,6 +11,8 @@ class App extends Component {
     const App = () => (
       <div>
         <Switch>
+          <Route exact path="/" component={Navbar} />
+          <Route exact path="/" component={Hero} />
           <Route exact path="/Login" component={Login} />
           <Route exact path="/Register" component={Register} />
         </Switch>
