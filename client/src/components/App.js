@@ -1,18 +1,25 @@
-import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import React, { Component } from "react";
+import { Route, Switch } from "react-router-dom";
 
 import Login from "./Auth/Login";
 import Register from "./Auth/Register";
 
-const App = () => {
-  return (
-    <div>
-      <BrowserRouter>
-        <Route path="/Login" exact component={Login} />
-        <Route path="/Register" exact component={Register} />
-      </BrowserRouter>
-    </div>
-  );
-};
+class App extends Component {
+  render() {
+    const App = () => (
+      <div>
+        <Switch>
+          <Route exact path="/Login" component={Login} />
+          <Route path="/Register" component={Register} />
+        </Switch>
+      </div>
+    );
+    return (
+      <Switch>
+        <App />
+      </Switch>
+    );
+  }
+}
 
 export default App;
