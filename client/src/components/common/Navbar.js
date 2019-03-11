@@ -5,11 +5,13 @@ const Navbar = () => {
   return (
     <nav className="teal lighten-1">
       <div className="nav-wrapper">
-        <a href="/" className="brand-logo left">
+
+        <a href="#about" className="brand-logo left">
           Project 3
         </a>
         <a
-          href="/"
+          href="#about"
+
           data-activates="mobile-demo"
           className="button-collapse right"
         >
@@ -17,19 +19,21 @@ const Navbar = () => {
         </a>
         <ul id="mobile-demo" className="right hide-on-med-and-down">
           <li>
-            <Link to="/AboutUs">About Us</Link>
+
+            <a href="#about">About Us</a>
           </li>
           <li>
-            <Link to="/About">Appointment Booking App</Link>
+            <a href="#about">Appointment Booking App</a>
           </li>
           <li>
-            <Link to="/WhoWeLinkre">Who we are</Link>
+            <a href="#about">Who we are</a>
           </li>
           <li>
-            <Link to="/Login">Login</Link>
+            <a href="#about">Login</a>
           </li>
           <li>
-            <Link to="/Register">Create Account</Link>
+            <a href="#about">Create Account</a>
+
           </li>
         </ul>
       </div>
