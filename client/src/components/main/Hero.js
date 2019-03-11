@@ -1,12 +1,14 @@
 import React from "react";
+
 import meadow from "./meadow.jpg";
+
 
 const Hero = () => {
   return (
     <section
       id="hero"
       className="blue lighten-4"
-      style={{ backgroundImage: "url(" + meadow + ")" }}
+      // style={{ backgroundImage: "url(" + meadow + ")" }}
     >
       <div className="container valign-wrapper jc-center">
         <div className="valign center-align white-text">
@@ -25,6 +27,7 @@ const Hero = () => {
             Log In
           </a>
           <a href="#about" className="btn waves-light waves-effect">
+
             Sign Up
           </a>
         </div>
