@@ -23,7 +23,7 @@ const Navbar = () => {
           </li>
 
           <li>
-            <a href="#about">Login</a>
+            <a href="./login">Login</a>
           </li>
           <li>
             <a href="#about">Create Account</a>

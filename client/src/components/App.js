@@ -1,29 +1,21 @@
 import React from "react";
-// import { Route, Switch } from "react-router-dom";
-
-// import Login from "./Auth/Login";
-// import Register from "./Auth/Register";
-import Navbar from "./common/Navbar";
-import Hero from "./main/Hero";
-import Exemplar from "./main/Exemplar";
-import Features from "./main/Features";
-import About from "./main/About";
-import SocialBrand from "./main/SocialBrand";
-import Footer from "./common/Footer";
+import {
+  BrowserRouter as Router,
+  Route
+} from 'react-router-dom'
+import Login from "./pages/Login";
+import Profile from "./pages/Profile";
+import Main from "./pages/main/Main";
 
 const App = () => {
   return (
     <div id="app">
-      <Navbar />
-      <Hero />
-      <Exemplar />
-      <Features />
-      <About />
-
-      <SocialBrand />
-      <Footer />
-      {/* <Route path="/Login" exact component={Login} />
-      <Route path="/Register" exact component={Register} /> */}
+    <Router>
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/profile" component={Profile} />  
+      <Route exact path="/" component={Main} />  
+     
+      </Router>
     </div>
   );
 };
