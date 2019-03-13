@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const About = () => {
   return (
@@ -6,8 +6,11 @@ const About = () => {
       <div className="container">
         <div className="row">
           <div className="col m6">
-            <h3>Bogus Studio</h3>
-            <p>We are a studio that aims to give our clients a platform that exemplifies a good user experience...</p>
+            <h3>About Us</h3>
+            <p>
+              We are a studio that aims to give our clients a platform that
+              exemplifies a good user experience...
+            </p>
           </div>
           <div className="col m6">
             <div className="stats">
