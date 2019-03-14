@@ -131,7 +131,7 @@ class Autocomplete extends Component {
       <Fragment>
         <div className="form-field">
   <div className="form-field__control">
-    <input id="fieldInput" type="text"  autocomplete="off" className="form-field__input"
+    <input id="fieldInput" type="text"  autoComplete="off" className="form-field__input"
          onChange={onChange}
          onKeyDown={onKeyDown}
          value={userInput} />

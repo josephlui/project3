@@ -6,6 +6,7 @@ import {
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Main from "./pages/main/Main";
+import Connection from "./pages/Connection"
 
 const App = () => {
   return (
@@ -13,7 +14,9 @@ const App = () => {
     <Router>
       <Route exact path="/login" component={Login} />
       <Route exact path="/profile" component={Profile} />  
+      <Route exact path="/connection" component={Connection} /> 
       <Route exact path="/" component={Main} />  
+     
      
       </Router>
     </div>
