@@ -1,5 +1,4 @@
 import React from 'react';
-import { ReactAgenda , ReactAgendaCtrl , guid ,  Modal } from 'react-agenda';
 
 require('moment/locale/fr.js')
 

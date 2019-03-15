@@ -18,17 +18,32 @@ var API = {
         const config = {userId, name};
         return axios.post (BASE_USR, config);
     },
-    scheduleAppt: function(calenderOwnerUserId,
-                            clientId,
-                            startDate,
-                            endDate){
-        const config = 
-            { calenderOwnerUserId,
-              clientId,
-              startDate,
-              endDate };
+    scheduleAppt: function(appt){
+        
+
+        const config = { "calenderOwnerUserId": appt.calendarOwnerUserId,
+              "clientId": appt.clientId,
+              "startDate": appt.startDateTime,
+              "endDate": appt.endDateTime,
+              "description": appt.name,
+              "color": appt.classes
+        }
+             
+  
 
         return axios.post(BASE_APPT, config);
+    },
+    updateAppt: function (item){
+
+        const {_id} = item;
+        const config = { 
+            color: item.classes,
+            description: item.name,
+            startDate: item.startDateTime,
+            endDate: item.endDateTime
+        }
+       
+        return axios.put(BASE_APPT + "/" + _id, config);
     },
     retrieveAppt: function (userId, date) {
         return axios.get(BASE_APPT + '/' + userId + '/' + date);
