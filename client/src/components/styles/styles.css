@@ -1,3 +1,6 @@
+@import '~react-agenda/build/styles.css';
+@import '~react-datetime/css/react-datetime.css';
+
 nav .nav-wrapper {
   max-width: 1000px;
   padding: 0 16px;
