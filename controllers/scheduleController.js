@@ -1,6 +1,5 @@
 const db = require("../models");
 
-
 module.exports = {
 
     /**
@@ -8,9 +7,13 @@ module.exports = {
      * @param {*} req 
      * @param {*} res 
      */
-    findById: function(req, res) {
+    retrieveAppt: function(req, res) {
+   
     db.Appointment  
-      .findById(req.params.id)
+      .find({"startDate":
+            {"$gte": new Date(req.params.date)},
+             $or: [ { clientId: req.params.id }, { calenderOwnerUserId: req.params.id } ] 
+            })
       .populate("ownerUserId")
       .populate("clientId")
       .then(dbModel => res.json(dbModel))

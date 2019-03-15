@@ -5,7 +5,7 @@ const scheduleController = require("../../controllers/scheduleController");
 router.route("/add")
   .post(scheduleController.create);
 
-// Matches with "/api/schedule/:id"
-router.route("/:id")
-    .get(scheduleController.findById);
+// Matches with "/api/schedule/:userid/:date"
+router.route("/:id/:date")
+    .get(scheduleController.retrieveAppt);
 module.exports = router;

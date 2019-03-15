@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const appointmentSchema = new Schema({
-  ownerUserId: 
+  calenderOwnerUserId: 
     {  
       required: true,
       type: Schema.Types.ObjectId,

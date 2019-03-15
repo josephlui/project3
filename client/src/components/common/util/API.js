@@ -30,8 +30,8 @@ var API = {
 
         return axios.post(BASE_APPT, config);
     },
-    retrieveAppt: function (apptId) {
-        return axios.get(BASE_APPT + '/' + apptId);
+    retrieveAppt: function (userId, date) {
+        return axios.get(BASE_APPT + '/' + userId + '/' + date);
     }
 }
 
