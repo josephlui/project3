@@ -1,70 +1,27 @@
 import React, { Component } from 'react';
-import moment from 'moment';
-import { ReactAgenda , ReactAgendaCtrl, guid , getUnique , getLast , getFirst , Modal } from 'react-agenda';
+import _ from "lodash";
+import API from "../common/util/API"
+import { ReactAgenda , ReactAgendaCtrl, Modal } from 'react-agenda';
+require('moment/locale/en-ca.js');
 
 var now = new Date();
-
-require('moment/locale/en-ca.js');
-    var colors= {
+var colors= {
       'color-1':"rgba(102, 195, 131 , 1)" ,
       "color-2":"rgba(242, 177, 52, 1)" ,
       "color-3":"rgba(235, 85, 59, 1)" ,
       "color-4":"rgba(70, 159, 213, 1)",
       "color-5":"rgba(170, 59, 123, 1)"
-    }
+}
 
+var items = [];
 
-var items = [
-  {
-   _id            :guid(),
-    name          : 'Meeting , dev staff!',
-    startDateTime : new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 0),
-    endDateTime   : new Date(now.getFullYear(), now.getMonth(), now.getDate(), 12, 0),
-    classes       : 'color-1 color-4'
-  },
-  {
-   _id            :guid(),
-    name          : 'Working lunch , Holly',
-    startDateTime : new Date(now.getFullYear(), now.getMonth(), now.getDate()+1, 11, 0),
-    endDateTime   : new Date(now.getFullYear(), now.getMonth(), now.getDate()+1, 13, 0),
-    classes       : 'color-2'
-  },
-  {
-   _id            :guid(),
-    name          : 'Conference , plaza',
-    startDateTime : new Date(now.getFullYear(), now.getMonth(), now.getDate()+1, 11 , 0),
-    endDateTime   : new Date(now.getFullYear(), now.getMonth(), now.getDate()+1, 14 ,30),
-    classes       : 'color-4'
-  },
-  {
-   _id            :'event-4',
-    name          : 'Customers issues review',
-    startDateTime : new Date(now.getFullYear(), now.getMonth(), now.getDate()+2, 10, 0),
-    endDateTime   : new Date(now.getFullYear(), now.getMonth(), now.getDate()+2, 15, 0),
-    classes       : 'color-3'
-
-  },
-  {
-    _id           :'event-5',
-    name          : 'Group activity',
-    startDateTime : new Date(now.getFullYear(), now.getMonth(), now.getDate()+3, 10, 0),
-    endDateTime   : new Date(now.getFullYear(), now.getMonth(), now.getDate()+3, 16, 30),
-    classes       : 'color-4'
-  },
-  {
-    _id           :'event-6',
-    name          : 'Fun Day !',
-    startDateTime : new Date(now.getFullYear(), now.getMonth(), now.getDate()+7, 9, 14),
-    endDateTime   : new Date(now.getFullYear(), now.getMonth(), now.getDate()+7, 17),
-    classes       : 'color-3'
-  }
-];
+// TODO: get user ID, for now, just hard code the ID
+const userID = '5c89c22c6611afbd926c61d7';
+   
 
 export default class Agenda extends Component {
   constructor(props){
   super(props);
-
-
 
 this.state = {
   items:[],
@@ -92,7 +49,31 @@ this.handleCellSelection = this.handleCellSelection.bind(this)
 
   componentDidMount(){
 
-    this.setState({items:items})
+   const todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 0)
+
+    API.retrieveAppt(userID, todayDate)
+    .then( result => {
+       if (result.status === 200) {
+       
+        items = _.map (result.data, booking => {
+          var start = new Date(booking.startDate);
+          var end = new Date(booking.endDate);
+          return {
+            _id: booking._id,
+            name: booking.description,
+            startDateTime: start,
+            endDateTime: end,
+            classes: booking.color
+          }
+        });
+        this.setState({
+          items: items
+        });
+        
+       
+       }
+      })
+    
 
 
   }
@@ -106,6 +87,7 @@ componentWillReceiveProps(next , last){
 }
   handleItemEdit(item, openModal) {
 
+    console.log ("handle Item Edit " +item);
     if(item && openModal === true){
       this.setState({selected:[item] })
       return this._openModal();
@@ -115,7 +97,7 @@ componentWillReceiveProps(next , last){
 
   }
   handleCellSelection(item, openModal) {
-
+    console.log ("handle cell selection " +item);
     if(this.state.selected && this.state.selected[0] === item){
       return  this._openModal();
     }
@@ -169,19 +151,29 @@ handleItemSize(items , item){
 }
 
 removeEvent(items , item){
-
+    console.log ("event removed " + item);
+    // remove the item from the database using API
     this.setState({ items:items});
 }
 
 addNewEvent (items , newItems){
-
+ 
   this.setState({showModal:false ,selected:[] , items:items});
   this._closeModal();
+  API.scheduleAppt({...newItems, calendarOwnerUserId: userID, clientId: userID})
+  .then(result => {
+    console.log ("Appt added: " + JSON.stringify(result.data)); 
+  }).catch( err => console.log ("Error adding new appointment: " + err))
 }
 editEvent (items , item){
-
+  console.log ("edit event " + JSON.stringify(item));
   this.setState({showModal:false ,selected:[] , items:items});
   this._closeModal();
+  API.updateAppt(item).then(result =>{
+      console.log ("Appt updated: " + JSON.stringify(result.data));
+  }).catch (err =>{
+      console.log ("Error updating appointment detail " + err);
+  })
 }
 
 changeView (days , event ){
@@ -191,10 +183,10 @@ this.setState({numberOfDays:days})
 
   render() {
 
-    var AgendaItem = function(props){
-      console.log( ' item component props' , props)
-      return <div style={{display:'block', position:'absolute' , background:'#FFF'}}>{props.item.name} <button onClick={()=> props.edit(props.item)}>Edit </button></div>
-    }
+    // var AgendaItem = function(props){
+    //   return <div style={{display:'block', position:'absolute' , background:'#FFF'}}>{props.item.name} <button onClick={()=> props.edit(props.item)}>Edit </button></div>
+    // }
+
     return (
 
       <div className="content-expanded ">
@@ -213,7 +205,7 @@ this.setState({numberOfDays:days})
           startAtTime={8}
           endAtTime={23}
           cellHeight={this.state.cellHeight}
-          locale="en"
+          locale="en-ca"
           items={this.state.items}
           numberOfDays={this.state.numberOfDays}
           headFormat={"ddd DD MMM"}

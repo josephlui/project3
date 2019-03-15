@@ -1,17 +1,19 @@
 const db = require("../models");
 
-
 module.exports = {
 
-    /**
-     * Finds and appointment by id
-     * @param {*} req 
-     * @param {*} res 
-     */
-    findById: function(req, res) {
+  /**
+    * Finds and appointment by id
+    * @param {*} req 
+    * @param {*} res 
+    */
+  retrieveAppt: function(req, res) {
+   
     db.Appointment  
-      .findById(req.params.id)
-      .populate("ownerUserId")
+      .find({"startDate":
+            {"$gte": new Date(req.params.date)},
+             $or: [ { clientId: req.params.id }, { calenderOwnerUserId: req.params.id } ] 
+            })
       .populate("clientId")
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
@@ -34,6 +36,15 @@ module.exports = {
           { $push: { appointmentBookingList: dbModel._id } },
            { new: true })   
       }).then (updateResult => res.json(updateResult))
+      .catch(err => res.status(422).json(err));
+  },
+  update: function(req, res) {
+
+      console.log (req.body);
+      console.log (req.params.id);
+      db.Appointment.findOneAndUpdate(
+            {_id: req.params.id}, req.body,{returnNewDocument: true})   
+      .then (updateResult => res.json(updateResult))
       .catch(err => res.status(422).json(err));
   }
 };
