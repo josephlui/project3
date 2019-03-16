@@ -6,7 +6,14 @@ const Navbar = () => {
     <nav className="teal lighten-1">
       <div className="nav-wrapper">
         <a href="#about" className="brand-logo left">
-          Project 3
+          <Link
+            to="/"
+            className={
+              window.location.pathname === "/" ? "nav-link active" : "nav-link"
+            }
+          >
+            Project 3{" "}
+          </Link>
         </a>
         <a
           href="#about"
