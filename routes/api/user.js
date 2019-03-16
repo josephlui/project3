@@ -13,7 +13,7 @@ router.route("/")
 router.route("/:id")
     .get(userController.findById);
 
-
+// Matches with "/api/user/tokensignin"
 router.route ("/tokensignin")
     .post(userController.validateOauthID)
 module.exports = router;
