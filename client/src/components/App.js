@@ -1,16 +1,16 @@
 import React from "react";
-import Navbar from "./common/Navbar";
-import Hero from "./main/Hero";
-import Exemplar from "./main/Exemplar";
-import Features from "./main/Features";
-import About from "./main/About";
-import SocialBrand from "./main/SocialBrand";
-import Footer from "./common/Footer";
+import Navbar from "./pages/main/Navbar";
+import Hero from "./pages/main/Hero";
+import Exemplar from "./pages/main/Exemplar";
+import Features from "./pages/main/Features";
+import About from "./pages/main/About";
+import SocialBrand from "./pages/main/SocialBrand";
+import Footer from "./pages/main/Footer";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Login from "./Auth/Login";
+import Login from "./pages/Login";
 import Register from "./Auth/Register";
 import Appointments from "./Appointments/Appointments";
-import Connections from "./Connections/Connections";
+import Connections from "./Connections/ConnectionList";
 
 const App = () => {
   return (
