@@ -1,4 +1,21 @@
 const db = require("../models");
+const {OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client("302735331685-j2de3ss9t9pcmout25hjo0e0lg0d550v.apps.googleusercontent.com");
+
+async function verify(token) {
+  const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: "302735331685-j2de3ss9t9pcmout25hjo0e0lg0d550v.apps.googleusercontent.com",  
+     
+  });
+  const payload = ticket.getPayload();
+  const userid = payload['sub'];
+  
+  console.log ("user id " + userid);
+  // If request specified a G Suite domain:
+  //const domain = payload['hd'];
+  return payload;
+}
 
 // Defining methods for the userController
 module.exports = {
@@ -52,6 +69,21 @@ module.exports = {
          { new: true })   
          .then (updateResult => res.json(updateResult))
          .catch(err => res.status(422).json(err));
+  },
+
+  validateOauthID: function (req, res) {
+    verify(req.body.idtoken)
+    .then(result => {
+
+      // TODO
+      // query API to determine if user already exist.  If yes, retrieve profile, otherwise
+      // create a new one
+      // result.name => 'firstname lastname'
+      // result.email => 'xx@gmail.com'
+      // return a session key and have the user redirect to the profile with the session key
+      // create user 
+      res.json({id: "5c89c9b99a0ded002a6775a2" });
+    }).catch(console.error);
   }
-  
+
 };
