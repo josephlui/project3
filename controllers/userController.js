@@ -80,8 +80,7 @@ module.exports = {
       // create a new one
       // result.name => 'firstname lastname'
       // result.email => 'xx@gmail.com'
-      // for now, maybe return the _id of the user?
-      
+      // return a session key and have the user redirect to the profile with the session key
       // create user 
       res.json({id: "5c89c9b99a0ded002a6775a2" });
     }).catch(console.error);
