@@ -2,7 +2,7 @@ import React from "react";
 
 class Login extends React.Component {
   render() {
-    return <div>Login Component</div>;
+    return (<div className="g-signin2" data-onsuccess="onSignIn"></div>);
   }
 }
 

@@ -4,10 +4,14 @@ const userController = require("../../controllers/userController");
 // Matches with "/api/user"
 router.route("/")
   .post(userController.register)
-  .put(userController.updateApproverList);
+  .put(userController.updateApproverList)
+  .get(userController.retrieveAll)
 
 // Matches with "/api/user/:id"
 router.route("/:id")
     .get(userController.findById);
 
+// Matches with "/api/user/tokensignin"
+router.route ("/tokensignin")
+    .post(userController.validateOauthID)
 module.exports = router;
