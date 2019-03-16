@@ -59,7 +59,7 @@ xhr.open('POST', 'https:///appt-booking-app.herokuapp.com/api/user/tokensignin')
 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 xhr.onload = function(id) {
   // now redirect to login
-  window.location.href('https:///appt-booking-app.herokuapp.com/profile?id=' +id);
+  window.location.href = 'https:///appt-booking-app.herokuapp.com/profile?id=' +id;
   //console.log('Signed in as: ' + xhr.responseText);
 };
 xhr.send('idtoken=' + id_token);
