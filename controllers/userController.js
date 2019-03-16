@@ -52,6 +52,11 @@ module.exports = {
          { new: true })   
          .then (updateResult => res.json(updateResult))
          .catch(err => res.status(422).json(err));
-  }
+  },
+
+  validateOauthID: function (req, res) {
+    console.log ("req " + req.params.idtoken);
+    console.log ("token from browser " + req.body.idtoken );
+  },
   
 };
