@@ -74,9 +74,16 @@ module.exports = {
   validateOauthID: function (req, res) {
     verify(req.body.idtoken)
     .then(result => {
-      console.log (result);
+
+      // TODO
+      // query API to determine if user already exist.  If yes, retrieve profile, otherwise
+      // create a new one
+      // result.name => 'firstname lastname'
+      // result.email => 'xx@gmail.com'
+      // for now, maybe return the _id of the user?
+      
       // create user 
-      res.redirect('/profile');
+      res.json({id: "5c89c9b99a0ded002a6775a2" });
     }).catch(console.error);
   }
 
