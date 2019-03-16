@@ -6,7 +6,7 @@ import Features from "./main/Features";
 import About from "./main/About";
 import SocialBrand from "./main/SocialBrand";
 import Footer from "./common/Footer";
-import { BrowserRouter as Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Login from "./Auth/Login";
 import Register from "./Auth/Register";
 import Appointments from "./Appointments/Appointments";
