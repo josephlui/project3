@@ -12,20 +12,32 @@ import Login from "./pages/Login";
 import Register from "./Auth/Register";
 import Appointments from "./Appointments/Appointments";
 import Connections from "./Connections/ConnectionList";
+import NavbarPages from "./pages/main/NavBar/NavBarPages";
 
 const App = () => {
   return (
     <div id="app">
-      <Navbar />
+      {/* Home Navigation Bar */}
+      <Route path="/" exact component={Navbar} />
+
+      {/* SubPage Nav Bar */}
+      <Route path="/appointments" exact component={NavbarPages} />
+      <Route path="/connections" exact component={NavbarPages} />
+      <Route path="/login" exact component={NavbarPages} />
+
+      {/* Home Navigation Bar Links */}
+      <Route path="/appointments" exact component={Appointments} />
+      <Route path="/connections" exact component={Connections} />
+      <Route path="/login" exact component={Login} />
+      <Route path="/register" exact component={Register} />
+
+      {/* landingPage Home Page */}
       <Route path="/" exact component={Hero} />
       <Route path="/" exact component={Exemplar} />
       <Route path="/" exact component={Features} />
       <Route path="/" exact component={About} />
       <Route path="/" exact component={SocialBrand} />
-      <Route path="/appointments" exact component={Appointments} />
-      <Route path="/connections" exact component={Connections} />
-      <Route path="/login" exact component={Login} />
-      <Route path="/register" exact component={Register} />
+      {/* Global Footer */}
       <Footer />
     </div>
   );
