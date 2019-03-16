@@ -1,4 +1,19 @@
 const db = require("../models");
+const {OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client("302735331685-j2de3ss9t9pcmout25hjo0e0lg0d550v.apps.googleusercontent.com");
+
+async function verify(token) {
+  const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: "302735331685-j2de3ss9t9pcmout25hjo0e0lg0d550v.apps.googleusercontent.com",  
+     
+  });
+  const payload = ticket.getPayload();
+  const userid = payload['sub'];
+  console.log ("user id " + userid);
+  // If request specified a G Suite domain:
+  //const domain = payload['hd'];
+}
 
 // Defining methods for the userController
 module.exports = {
@@ -55,8 +70,7 @@ module.exports = {
   },
 
   validateOauthID: function (req, res) {
-    console.log ("req " + req.params.idtoken);
-    console.log ("token from browser " + req.body.idtoken );
-  },
-  
+    verify(req.body.idtoken).catch(console.error);
+  }
+
 };
