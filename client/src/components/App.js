@@ -1,26 +1,32 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Route
-} from 'react-router-dom'
+import Navbar from "./pages/main/Navbar";
+import Hero from "./pages/main/Hero";
+import Exemplar from "./pages/main/Exemplar";
+import Features from "./pages/main/Features";
+import About from "./pages/main/About";
+import SocialBrand from "./pages/main/SocialBrand";
+import Footer from "./pages/main/Footer";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+// Ignore the error that tells you to delete the Router, bc the page crashes when it gets deleted
 import Login from "./pages/Login";
-import Profile from "./pages/Profile";
-import Main from "./pages/main/Main";
-import Connection from "./pages/Connection"
-import Appointment from "./pages/Appointment"
+import Register from "./Auth/Register";
+import Appointments from "./Appointments/Appointments";
+import Connections from "./Connections/ConnectionList";
 
 const App = () => {
   return (
     <div id="app">
-    <Router>
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/profile" component={Profile} />  
-      <Route exact path="/connection" component={Connection} /> 
-      <Route exact path="/appointment" component={Appointment} /> 
-      <Route exact path="/" component={Main} />  
-     
-     
-      </Router>
+      <Navbar />
+      <Route path="/" exact component={Hero} />
+      <Route path="/" exact component={Exemplar} />
+      <Route path="/" exact component={Features} />
+      <Route path="/" exact component={About} />
+      <Route path="/" exact component={SocialBrand} />
+      <Route path="/appointments" exact component={Appointments} />
+      <Route path="/connections" exact component={Connections} />
+      <Route path="/login" exact component={Login} />
+      <Route path="/register" exact component={Register} />
+      <Footer />
     </div>
   );
 };
