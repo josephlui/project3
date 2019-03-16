@@ -10,9 +10,11 @@ async function verify(token) {
   });
   const payload = ticket.getPayload();
   const userid = payload['sub'];
+  
   console.log ("user id " + userid);
   // If request specified a G Suite domain:
   //const domain = payload['hd'];
+  return payload;
 }
 
 // Defining methods for the userController
@@ -70,7 +72,11 @@ module.exports = {
   },
 
   validateOauthID: function (req, res) {
-    verify(req.body.idtoken).catch(console.error);
+    verify(req.body.idtoken)
+    .then(result => {
+      // create user 
+      res.redirect('/profile');
+    }).catch(console.error);
   }
 
 };
