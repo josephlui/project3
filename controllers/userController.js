@@ -74,6 +74,7 @@ module.exports = {
   validateOauthID: function (req, res) {
     verify(req.body.idtoken)
     .then(result => {
+      console.log (result);
       // create user 
       res.redirect('/profile');
     }).catch(console.error);
