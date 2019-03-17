@@ -116,21 +116,30 @@ module.exports = {
    */
   validateOauthID: function (req, res) {
 
+    var token = "";
+    // 
+    // return new Promise ((resolve, reject ) => { 
+    //   token="abc1234def";
+    //   resolve({given_name: "f",email: "f@gmail.com"})})
     verify(req.body.idtoken)
     .then(result => {
       console.log ("result from firebase" + JSON.stringify(result));
       if (!(result.name && result.email && result.email_verified)){
         throw err ("invalid token");
       }
+      token = result.sub
       return result;
     })
     .then(result => findUserByUserId(result.given_name, result.email))
     .then (user => {
       return  db.Session.findOneAndUpdate(
         {userId: user._id},
-        {tokenId: req.body.idtoken,
-           expiryDate: new Date() },
-           {returnNewDocument: true, upsert: true});
+        {tokenId: token,
+         expiryDate: new Date(),
+         userId: user._id,
+         name: user.given_name
+        },
+        {returnNewDocument: true, upsert: true});
     })  
     .then (result => {
       console.log (result);
