@@ -17,6 +17,21 @@ async function verify(token) {
   return payload;
 }
 
+/**
+ * If user ID exists, refresh the name
+ * otherwise, create a new user
+ * @param {*} userId 
+ * @param {*} name 
+ */
+async function findUserByUserId (userId, name) {
+
+  // upsert on userId
+  return db.User.findOneAndUpdate(
+    { userId: userId},
+    {name: name }   ,
+    {new: true, upsert: true}
+  )
+}
 
 
 // Defining methods for the userController
@@ -81,16 +96,15 @@ module.exports = {
          .catch(err => res.status(422).json(err));
   },
 
- findUserByUserId: function (userId, name) {
-    return db.User.findAndModify(
-      {query: { userId: userId, name: name },
-      new: true,
-      upsert: true
-      }
-    )
-  },
-
+ 
+  /**
+   * Validates id token from user
+   * if the token is valid, upserts user to user collection
+   * @param {*} req 
+   * @param {*} res 
+   */
   validateOauthID: function (req, res) {
+
     verify(req.body.idtoken)
     .then(result => {
       console.log ("result from firebase" + JSON.stringify(result));
@@ -99,13 +113,12 @@ module.exports = {
       }
       return result;
     })
-    .then(result => this.findUserByUserId(result.given_name, result.email))
+    .then(result => findUserByUserId(result.given_name, result.email))
     .then (user => {
       console.log ("user object " + user);
       // sets a cookie with the user's info
       req.session.user = user;
-      res.end();
-      //res.redirect('/appointments');
+      res.json(user);
     })
     .catch(err => {
       console.log (err);
