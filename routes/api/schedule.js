@@ -9,8 +9,8 @@ router.route("/")
 router.route("/:id")
   .put (scheduleController.update)
 
-// Matches with "/api/schedule/:userid/:date"
-router.route("/:id/:date")
+// Matches with "/api/schedule/:date"
+router.route("/:date")
     .get(scheduleController.retrieveAppt);
 
 module.exports = router;

@@ -8,15 +8,22 @@ module.exports = {
     * @param {*} res 
     */
   retrieveAppt: function(req, res) {
-   
-    db.Appointment  
+    console.log (req.session );
+     if (req.session && req.session.user) { // Check if session exists
+      console.log ('userID ' + req.session.user);
+      db.Appointment  
       .find({"startDate":
             {"$gte": new Date(req.params.date)},
-             $or: [ { clientId: req.params.id }, { calenderOwnerUserId: req.params.id } ] 
+             $or: [ { clientId: req.session.user.id }, { calenderOwnerUserId: req.session.user.id } ] 
             })
       .populate("clientId")
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
+    } else {
+      res.end();
+      //res.redirect('/login');
+    }
+   
   },
   
   /**

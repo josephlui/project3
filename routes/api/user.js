@@ -13,5 +13,10 @@ router.route("/:id")
 
 // Matches with "/api/user/tokensignin"
 router.route ("/tokensignin")
-    .post(userController.validateOauthID)
+    .post(userController.validateOauthID);
+
+// Matches with "/api/user/logout"
+router.route ("/logout")
+    .post(userController.logout);
+
 module.exports = router;

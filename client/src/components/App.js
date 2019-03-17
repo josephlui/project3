@@ -12,6 +12,7 @@ import Register from "./Auth/Register";
 import Appointments from "./pages/Appointment";
 import Connections from "./pages/Connection";
 import NavbarPages from "./pages/main/NavBar/NavBarPages";
+import Logout from "./common/Logout";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
       <Route path="/connections" exact component={Connections} />
       <Route path="/login" exact component={Login} />
       <Route path="/register" exact component={Register} />
+      <Route path="/logout" exact component={Logout} />
 
       {/* Home Page */}
       <Route path="/" exact component={Hero} />

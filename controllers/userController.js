@@ -39,10 +39,19 @@ module.exports = {
    * @param {*} req 
    * @param {*} res 
    */
-  findUserByUserId: function (req, res) {
-    db.User.find({"userId": })
-    .then (dbModel => res.json (dbModel))
-    .catch (err => res.status(422).json (err));
+  findUserByUserId: function (userId, name) {
+    return db.User.findAndModify(
+      {query: { userId: user, name: name },
+      new: true,
+      upsert: true
+      }
+    )
+  },
+
+  logout: function (req, res) {
+    console.log ("request received to logout");
+    req.session.reset();
+    res.end();
   },
 
   /**
@@ -85,7 +94,22 @@ module.exports = {
   validateOauthID: function (req, res) {
     verify(req.body.idtoken)
     .then(result => {
-
+      console.log ("result from firebase" + result);
+      if (!(result.name && result.email)){
+        throw err ("token missing information");
+      }
+      return result;
+    })
+    .then(result => findUserByUserId(result.name, result.userId))
+    .then (user => {
+      console.log ("user object " + user);
+      // sets a cookie with the user's info
+      req.session.user = user;
+      res.end();
+      //res.redirect('/appointments');
+    })
+    .catch(console.error);
+    
       // TODO
       // query API to determine if user already exist.  If yes, retrieve profile, otherwise
       // create a new one
@@ -94,9 +118,6 @@ module.exports = {
       // return a session key and have the user redirect to the profile with the session key
       // create user 
 
-      
-      res.json({id: "5c89c9b99a0ded002a6775a2" });
-    }).catch(console.error);
   }
 
 };

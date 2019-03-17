@@ -45,8 +45,11 @@ var API = {
        
         return axios.put(BASE_APPT + "/" + _id, config);
     },
-    retrieveAppt: function (userId, date) {
-        return axios.get(BASE_APPT + '/' + userId + '/' + date);
+    retrieveAppt: function (date) {
+        return axios.get(BASE_APPT + '/' + date);
+    },
+    logout: function(){
+        return axios.post(BASE_USR + "/logout");
     }
 }
 
