@@ -52,6 +52,7 @@ this.handleCellSelection = this.handleCellSelection.bind(this)
 
   componentDidMount(){
   
+   console.log ("session storage token" + sessionStorage.getItem ("token"));
 
    const todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 0)
     API.retrieveAppt(moment(todayDate , 'YYYY-MM-DD'))
