@@ -6,12 +6,11 @@ import Features from "./pages/main/Features";
 import About from "./pages/main/About";
 import SocialBrand from "./pages/main/SocialBrand";
 import Footer from "./pages/main/Footer";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-// Ignore the error that tells you to delete the Router, bc the page crashes when it gets deleted
+import { Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./Auth/Register";
-import Appointments from "./Appointments/Appointments";
-import Connections from "./Connections/ConnectionList";
+import Appointments from "./pages/Appointment";
+import Connections from "./pages/Connection";
 import NavbarPages from "./pages/main/NavBar/NavBarPages";
 
 const App = () => {
