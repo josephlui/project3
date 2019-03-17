@@ -12,7 +12,7 @@ const Navbar = () => {
               window.location.pathname === "/" ? "nav-link active" : "nav-link"
             }
           >
-            Project 3{" "}
+            QuickBook{" "}
           </Link>
         </a>
         <a

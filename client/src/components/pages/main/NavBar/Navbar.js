@@ -12,16 +12,10 @@ const Navbar = () => {
               window.location.pathname === "/" ? "nav-link active" : "nav-link"
             }
           >
-            Project 3{" "}
+            QuickBook{" "}
           </Link>
         </a>
-        <a
-          href="#about"
-          data-activates="mobile-demo"
-          className="button-collapse right"
-        >
-          <i className="material-icons">menu</i>
-        </a>
+
         <ul id="mobile-demo" className="right hide-on-med-and-down">
           <li>
             <Link
