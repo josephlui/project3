@@ -41,7 +41,7 @@ module.exports = {
    */
   findUserByUserId: function (userId, name) {
     return db.User.findAndModify(
-      {query: { userId: user, name: name },
+      {query: { userId: userId, name: name },
       new: true,
       upsert: true
       }
@@ -94,7 +94,7 @@ module.exports = {
   validateOauthID: function (req, res) {
     verify(req.body.idtoken)
     .then(result => {
-      console.log ("result from firebase" + result);
+      console.log ("result from firebase" + JSON.stringify(result));
       if (!(result.name && result.email)){
         throw err ("token missing information");
       }
