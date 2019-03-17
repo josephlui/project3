@@ -20,18 +20,29 @@ async function verify(token) {
 // Defining methods for the userController
 module.exports = {
     
-    /**
-     * Finds user by id
-     * @param {*} req 
-     * @param {*} res 
-     */
-    findById: function(req, res) {
+  /**
+    * Finds user by id
+    * @param {*} req 
+    * @param {*} res 
+    */
+  findById: function(req, res) {
     db.User  
       .findById(req.params.id)
       .populate("appointmentBookingList")
       .populate("approverList")
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
+  },
+
+  /**
+   * Find user by user Id (email address)
+   * @param {*} req 
+   * @param {*} res 
+   */
+  findUserByUserId: function (req, res) {
+    db.User.find({"userId": })
+    .then (dbModel => res.json (dbModel))
+    .catch (err => res.status(422).json (err));
   },
 
   /**
@@ -82,6 +93,8 @@ module.exports = {
       // result.email => 'xx@gmail.com'
       // return a session key and have the user redirect to the profile with the session key
       // create user 
+
+      
       res.json({id: "5c89c9b99a0ded002a6775a2" });
     }).catch(console.error);
   }

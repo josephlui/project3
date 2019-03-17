@@ -5,6 +5,7 @@
   "proxy": "http://localhost:3001/",
   "dependencies": {
     "axios": "^0.18.0",
+    "client-sessions": "^0.8.0",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "react": "^16.6.3",
