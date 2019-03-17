@@ -17,6 +17,15 @@ async function verify(token) {
   return payload;
 }
 
+async function findUserByUserId (userId, name) {
+ return db.User.findAndModify(
+   {query: { userId: userId, name: name },
+   new: true,
+   upsert: true
+   }
+ )
+}
+
 // Defining methods for the userController
 module.exports = {
     
@@ -34,19 +43,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  /**
-   * Find user by user Id (email address)
-   * @param {*} req 
-   * @param {*} res 
-   */
-  findUserByUserId: function (userId, name) {
-    return db.User.findAndModify(
-      {query: { userId: userId, name: name },
-      new: true,
-      upsert: true
-      }
-    )
-  },
+  
 
   logout: function (req, res) {
     console.log ("request received to logout");
@@ -95,12 +92,12 @@ module.exports = {
     verify(req.body.idtoken)
     .then(result => {
       console.log ("result from firebase" + JSON.stringify(result));
-      if (!(result.name && result.email)){
+      if (!(result.name && result.email && result.email_verified)){
         throw err ("token missing information");
       }
       return result;
     })
-    .then(result => findUserByUserId(result.name, result.userId))
+    .then(result => findUserByUserId(result.given_name, result.email))
     .then (user => {
       console.log ("user object " + user);
       // sets a cookie with the user's info
