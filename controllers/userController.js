@@ -23,11 +23,11 @@ async function verify(token) {
  * @param {*} userId 
  * @param {*} name 
  */
-async function findUserByUserId (userId, name) {
+async function findUserByUserId (name, email) {
 
   // upsert on userId
   return db.User.findOneAndUpdate(
-    { userId: userId},
+    { userId: email},
     {name: name }   ,
     {new: true, upsert: true}
   )
