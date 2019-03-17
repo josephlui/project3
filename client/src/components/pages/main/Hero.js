@@ -1,5 +1,4 @@
 import React from "react";
-
 import meadow from "./meadow.jpg";
 
 const Hero = () => {
@@ -18,15 +17,12 @@ const Hero = () => {
 
           <p className="big">
             Created by:
-            <br />
+            <br /> <br />
             Joseph, Tahreem, Saumil, and Judy
           </p>
-
-          <a href="#about" className="btn waves-light waves-effect m-r-16">
+          <br />
+          <a href="/login" className="btn waves-light waves-effect m-r-16">
             Log In
-          </a>
-          <a href="#about" className="btn waves-light waves-effect">
-            Sign Up
           </a>
         </div>
       </div>

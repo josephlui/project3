@@ -7,10 +7,10 @@ const Features = () => {
         <div className="row">
           <div className="col m3" />
           <div className="col m6 center-align">
-            <h2>Features</h2>
+            <h2>Our Team</h2>
             <p>
-              We worked out an amazing combination of vast functionality and
-              user's comfort. It will totally impress you with its power!
+              Our team developed an amazing combination of vast functionality
+              and user's comfort as top priority.
             </p>
           </div>
           <div className="col m3" />

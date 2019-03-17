@@ -25,6 +25,18 @@ const Navbar = () => {
         <ul id="mobile-demo" className="right hide-on-med-and-down">
           <li>
             <Link
+              to="/login"
+              className={
+                window.location.pathname === "/login"
+                  ? "nav-link active"
+                  : "nav-link"
+              }
+            >
+              Login{" "}
+            </Link>{" "}
+          </li>
+          <li>
+            <Link
               to="/appointments"
               className={
                 window.location.pathname === "/appointments"
@@ -46,30 +58,6 @@ const Navbar = () => {
             >
               Profile{" "}
             </Link>
-          </li>
-          <li>
-            <Link
-              to="/login"
-              className={
-                window.location.pathname === "/login"
-                  ? "nav-link active"
-                  : "nav-link"
-              }
-            >
-              Login{" "}
-            </Link>{" "}
-          </li>
-          <li>
-            <Link
-              to="/register"
-              className={
-                window.location.pathname === "/register"
-                  ? "nav-link active"
-                  : "nav-link"
-              }
-            >
-              Register{" "}
-            </Link>{" "}
           </li>
         </ul>
       </div>

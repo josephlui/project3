@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "./pages/main/Navbar";
+import Navbar from "./pages/main/NavBar/Navbar";
 import Hero from "./pages/main/Hero";
 import Exemplar from "./pages/main/Exemplar";
 import Features from "./pages/main/Features";
@@ -17,26 +17,26 @@ import NavbarPages from "./pages/main/NavBar/NavBarPages";
 const App = () => {
   return (
     <div id="app">
-      {/* Home Navigation Bar */}
+      {/* Home NavBar */}
       <Route path="/" exact component={Navbar} />
 
-      {/* SubPage Nav Bar */}
+      {/* Sub NavBar Links*/}
       <Route path="/appointments" exact component={NavbarPages} />
       <Route path="/connections" exact component={NavbarPages} />
       <Route path="/login" exact component={NavbarPages} />
-
-      {/* Home Navigation Bar Links */}
+      {/* Home NavBar Links */}
       <Route path="/appointments" exact component={Appointments} />
       <Route path="/connections" exact component={Connections} />
       <Route path="/login" exact component={Login} />
       <Route path="/register" exact component={Register} />
 
-      {/* landingPage Home Page */}
+      {/* Home Page */}
       <Route path="/" exact component={Hero} />
       <Route path="/" exact component={Exemplar} />
       <Route path="/" exact component={Features} />
       <Route path="/" exact component={About} />
       <Route path="/" exact component={SocialBrand} />
+
       {/* Global Footer */}
       <Footer />
     </div>
