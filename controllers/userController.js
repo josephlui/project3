@@ -17,14 +17,7 @@ async function verify(token) {
   return payload;
 }
 
-async function findUserByUserId (userId, name) {
- return db.User.findAndModify(
-   {query: { userId: userId, name: name },
-   new: true,
-   upsert: true
-   }
- )
-}
+
 
 // Defining methods for the userController
 module.exports = {
@@ -88,6 +81,15 @@ module.exports = {
          .catch(err => res.status(422).json(err));
   },
 
+ findUserByUserId: function (userId, name) {
+    return db.User.findAndModify(
+      {query: { userId: userId, name: name },
+      new: true,
+      upsert: true
+      }
+    )
+  },
+
   validateOauthID: function (req, res) {
     verify(req.body.idtoken)
     .then(result => {
@@ -97,7 +99,7 @@ module.exports = {
       }
       return result;
     })
-    .then(result => findUserByUserId(result.given_name, result.email))
+    .then(result => this.findUserByUserId(result.given_name, result.email))
     .then (user => {
       console.log ("user object " + user);
       // sets a cookie with the user's info
