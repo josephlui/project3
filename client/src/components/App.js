@@ -8,7 +8,7 @@ import SocialBrand from "./pages/main/SocialBrand";
 import Footer from "./pages/main/Footer";
 import { Route } from "react-router-dom";
 import Login from "./pages/Login";
-// import Register from "./auth/Register";
+import Register from "./Auth/Register";
 import Appointments from "./pages/Appointment";
 import Connections from "./pages/Connection";
 import NavbarPages from "./pages/main/NavBar/NavBarPages";
@@ -27,7 +27,7 @@ const App = () => {
       <Route path="/appointments" exact component={Appointments} />
       <Route path="/connections" exact component={Connections} />
       <Route path="/login" exact component={Login} />
-      {/* <Route path="/register" exact component={Register} /> */}
+      <Route path="/register" exact component={Register} />
 
       {/* Home Page */}
       <Route path="/" exact component={Hero} />
