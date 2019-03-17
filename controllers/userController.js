@@ -144,7 +144,7 @@ module.exports = {
     .then (result => {
       console.log (result);
       res.status(200).json({
-        token: result.tokenId
+        token: token
       })})
     .catch(err => {
       console.log (err);
