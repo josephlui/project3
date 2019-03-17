@@ -51,11 +51,22 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  
+  findUserByToken: function (req, res) {
+    // upsert on userId
+    const current = new Date();
+    var expiryDate = new Date();
+    expiryDate.setMinutes = current.getMinutes + 3;
+    return db.Session.findOneAndUpdate(
+     { tokenId: req.params.token,
+      expiryDate: { $gte : current }
+    },
+     { expiryDate: expiryDate }   ,
+     {new: true, upsert: false}
+  )
+  },
 
   logout: function (req, res) {
     console.log ("request received to logout");
-    req.session.reset();
     res.end();
   },
 
@@ -109,31 +120,29 @@ module.exports = {
     .then(result => {
       console.log ("result from firebase" + JSON.stringify(result));
       if (!(result.name && result.email && result.email_verified)){
-        throw err ("token missing information");
+        throw err ("invalid token");
       }
       return result;
     })
     .then(result => findUserByUserId(result.given_name, result.email))
     .then (user => {
-      console.log ("user object " + user);
-      // sets a cookie with the user's info
-      req.session.user = user;
-      res.json(user);
-    })
+      return  db.Session.findOneAndUpdate(
+        {userId: user._id},
+        {tokenId: req.body.idtoken,
+           expiryDate: new Date() },
+           {returnNewDocument: true, upsert: true});
+    })  
+    .then (result => {
+      console.log (result);
+      res.status(200).json({
+        success:true,
+        redirectUrl: '/appointments'
+      })})
     .catch(err => {
       console.log (err);
       res.status(422).json(err);
-    }
-    );
-    
-      // TODO
-      // query API to determine if user already exist.  If yes, retrieve profile, otherwise
-      // create a new one
-      // result.name => 'firstname lastname'
-      // result.email => 'xx@gmail.com'
-      // return a session key and have the user redirect to the profile with the session key
-      // create user 
+    }); 
 
   }
+}
 
-};

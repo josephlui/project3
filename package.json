@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "client-sessions": "^0.8.0",
     "create-react-context": "^0.2.3",
     "css-loader": "^2.1.1",
     "express": "^4.16.3",
