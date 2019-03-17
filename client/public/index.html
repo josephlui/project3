@@ -61,7 +61,7 @@ xhr.onload = function(id) {
   // now redirect to login
   console.log (id);
   console.log (sessionStorage.setItem('token', id.token));
-  window.location.href = 'https:///appt-booking-app.herokuapp.com/appointments';
+  //window.location.href = 'https:///appt-booking-app.herokuapp.com/appointments';
   //console.log('Signed in as: ' + xhr.responseText);
 };
 xhr.send('idtoken=' + id_token);

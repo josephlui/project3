@@ -141,8 +141,8 @@ module.exports = {
         },
         {returnNewDocument: true, upsert: true});
     })  
-    .then (result => {
-      console.log (result);
+    .then (() => {
+      console.log (token);
       res.status(200).json({
         token: token
       })})
