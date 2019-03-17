@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-require('moment/locale/fr.js')
+require("moment/locale/fr.js");
 
 class Appointment extends React.Component {
   render() {

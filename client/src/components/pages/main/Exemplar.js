@@ -10,9 +10,10 @@ const Exemplar = () => {
           <div className="col l10 center-align">
             <h1>Modern Appointment Booking Application</h1>
             <p>
-              We provide an efficient, organized, and convenient solution to
-              your companys booking needs.
+              Providing an efficient, organized, and convenient solution to
+              booking needs.
             </p>
+            <br />
             <img
               className="responsive-img"
               src={sprintboard}
