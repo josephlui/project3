@@ -9,6 +9,7 @@ import Footer from "./pages/main/Footer";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 // Ignore the error that tells you to delete the Router, bc the page crashes when it gets deleted
 import Login from "./pages/Login";
+import Logout from "./pages/Logout";
 import Register from "./Auth/Register";
 import Appointments from "./Appointments/Appointments";
 import Connections from "./Connections/ConnectionList";
@@ -24,6 +25,8 @@ const App = () => {
       <Route path="/appointments" exact component={NavbarPages} />
       <Route path="/connections" exact component={NavbarPages} />
       <Route path="/login" exact component={NavbarPages} />
+      <Route path="/logout" exact component={NavbarPages} />
+      <Route path="/logout" exact component={Logout} />
       {/* Home NavBar Links */}
       <Route path="/appointments" exact component={Appointments} />
       <Route path="/connections" exact component={Connections} />

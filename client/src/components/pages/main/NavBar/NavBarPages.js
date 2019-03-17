@@ -59,6 +59,18 @@ const Navbar = () => {
               Profile{" "}
             </Link>
           </li>
+          <li>
+            <Link
+              to="/logout"
+              className={
+                window.location.pathname === "/logout"
+                  ? "nav-link active"
+                  : "nav-link"
+              }
+            >
+              Logout{" "}
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>
