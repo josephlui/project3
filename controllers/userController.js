@@ -108,7 +108,11 @@ module.exports = {
       res.end();
       //res.redirect('/appointments');
     })
-    .catch(console.error);
+    .catch(err => {
+      console.log (err);
+      res.status(422).json(err);
+    }
+    );
     
       // TODO
       // query API to determine if user already exist.  If yes, retrieve profile, otherwise
