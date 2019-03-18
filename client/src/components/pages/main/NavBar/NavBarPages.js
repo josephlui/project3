@@ -15,7 +15,7 @@ const Navbar = () => {
                   : "nav-link"
               }
             >
-              QuickBook{" "}
+              AppointJS{" "}
             </Link>
           </div>
           <a

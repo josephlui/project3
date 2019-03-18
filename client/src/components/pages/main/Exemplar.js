@@ -8,7 +8,7 @@ const Exemplar = () => {
         <div className="row">
           <div className="col l1" />
           <div className="col l10 center-align">
-            <h1>QuickBook</h1>
+            <h1>AppointJS</h1>
             <p>
               Modern appointment booking application providing an efficient,
               organized, and convenient solution to your business' booking
