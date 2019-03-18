@@ -58,7 +58,7 @@
 
        var url = "https:///appt-booking-app.herokuapp.com/api/user/tokensignin";
        //url = "http://localhost:3000/api/user/tokensignin";
-       $.post( url,{id_token: id_token})
+       $.post( url,{idtoken: id_token})
        .done(function (data){
           sessionStorage.setItem ("token", data.token);
           window.location.href = "https:///appt-booking-app.herokuapp.com/appointments";
