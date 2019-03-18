@@ -10,7 +10,7 @@ router.route("/:id")
   .put (scheduleController.update)
 
 // Matches with "/api/schedule/:date"
-router.route("/:date")
+router.route("/:id/:date")
     .get(scheduleController.retrieveAppt);
 
 module.exports = router;

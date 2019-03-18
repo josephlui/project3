@@ -3,7 +3,7 @@ var uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
 
 const sessionSchema = new Schema({
-  userId: { type: Schema.Types.ObjectId, ref: 'User', unique: true },
+  user: { type: Schema.Types.ObjectId, ref: 'User', unique: true },
   expiryDate: { type: Date, default: Date.now },
   tokenId: { type: String, required: true, unique: true},
   email: { type: String, required: true, unique: true},

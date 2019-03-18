@@ -51,16 +51,15 @@ this.handleCellSelection = this.handleCellSelection.bind(this)
   }
 
   componentDidMount(){
-  
-   console.log ("session storage token" + sessionStorage.getItem ("token"));
 
+   let token = sessionStorage.getItem ("token")
    const todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 0)
-    API.retrieveAppt(moment(todayDate , 'YYYY-MM-DD'))
+    API.retrieveAppt(token, moment(todayDate).format('YYYY-MM-DD'))
     .then( result => {
        if (result.status === 200) {
         //userId = "5c89c22c6611afbd926c61d7";
-        sessionStorage.setItem("token", JSON.stringify(result.data));
-     
+       // sessionStorage.setItem("token", JSON.stringify(result.data));
+     console.log (result.data);
         items = _.map (result.data, booking => {
           var start = new Date(booking.startDate);
           var end = new Date(booking.endDate);
