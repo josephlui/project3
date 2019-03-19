@@ -4,6 +4,7 @@ const BASE_USR = '/api/user';
 const BASE_APPT = '/api/schedule'
 
 var API = {
+
     retrieveUser: function(token){
         return axios.get(BASE_USR + "/" + token);
     },
@@ -45,11 +46,18 @@ var API = {
        
         return axios.put(BASE_APPT + "/" + _id, config);
     },
+    removeAppt: function (apptId) {
+        const config = {
+            apptId: apptId,
+        }
+        console.log (config);
+        return axios.delete(BASE_APPT + '/delete', {data: config});
+    },
     retrieveAppt: function (id, date) {
         return axios.get(BASE_APPT + '/'+ id + '/' + date);
     },
-    logout: function(){
-        return axios.post(BASE_USR + "/logout");
+    logout: function(config){
+        return axios.post(BASE_USR + "/logout", config);
     }
 }
 
