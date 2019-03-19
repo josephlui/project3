@@ -152,9 +152,12 @@ handleItemSize(items , item){
 }
 
 removeEvent(items , item){
-    console.log ("event removed " + item);
+    // console.log ("event removed " + JSON.stringify(item));
     // remove the item from the database using API
-    this.setState({ items:items});
+    API.removeAppt(item._id)
+    .then(result =>{
+       this.setState({ items:items});
+    })
 }
 
 addNewEvent (items , newItems){
