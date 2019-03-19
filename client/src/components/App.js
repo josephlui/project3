@@ -9,8 +9,8 @@ import Footer from "./pages/main/Footer";
 import { Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./Auth/Register";
-import Appointments from "./pages/Appointment";
-import Connections from "./pages/Connection";
+import Appointments from "./Appointments/Appointments";
+import Connections from "./Connections/ConnectionInfo";
 import NavbarPages from "./pages/main/NavBar/NavBarPages";
 import Logout from "./common/Logout";
 
@@ -24,6 +24,8 @@ const App = () => {
       <Route path="/appointments" exact component={NavbarPages} />
       <Route path="/connections" exact component={NavbarPages} />
       <Route path="/login" exact component={NavbarPages} />
+      <Route path="/logout" exact component={NavbarPages} />
+      <Route path="/logout" exact component={Logout} />
       {/* Home NavBar Links */}
       <Route path="/appointments" exact component={Appointments} />
       <Route path="/connections" exact component={Connections} />
