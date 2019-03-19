@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const appointmentSchema = new Schema({
-  ownerUserId: 
+  calenderOwnerUserId: 
     {  
       required: true,
       type: Schema.Types.ObjectId,
@@ -20,6 +20,7 @@ const appointmentSchema = new Schema({
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
   description: { type: String, required: false},
+  color: {type: String, required: false, default: 'color-1'}
 });
 
 const Appointment = mongoose.model("Appointment", appointmentSchema);

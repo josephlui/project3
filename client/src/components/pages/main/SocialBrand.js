@@ -1,4 +1,5 @@
 import React from "react";
+import logo from "./logo.png";
 
 const SocialBrand = () => {
   return (
@@ -6,7 +7,7 @@ const SocialBrand = () => {
       <div className="container center-align">
         <h1>
           <a href="#about" className="brand-logo">
-            Logo
+            <img className="" src={logo} alt="logo" />
           </a>
         </h1>
       </div>

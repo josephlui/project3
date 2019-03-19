@@ -2,10 +2,15 @@ const router = require("express").Router();
 const scheduleController = require("../../controllers/scheduleController");
 
 // Matches with "/api/schedule"
-router.route("/add")
-  .post(scheduleController.create);
+router.route("/")
+  .post(scheduleController.create)
 
 // Matches with "/api/schedule/:id"
 router.route("/:id")
-    .get(scheduleController.findById);
+  .put (scheduleController.update)
+
+// Matches with "/api/schedule/userId/:date"
+router.route("/:id/:date")
+    .get(scheduleController.retrieveAppt);
+
 module.exports = router;

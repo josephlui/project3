@@ -1,5 +1,6 @@
 module.exports = {
     Appointment: require("./appointment"),
-    User: require("./user")
+    User: require("./user"),
+    Session: require("./session")
 };
   

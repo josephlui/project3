@@ -13,14 +13,26 @@
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="./styles/reset.css" />
     <link
-      href="http://fonts.googleapis.com/icon?family=Material+Icons"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"
     />
+
+    <link rel="stylesheet" type="text/css" href="./styles/style.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <meta
+      name="google-signin-client_id"
+      content="302735331685-j2de3ss9t9pcmout25hjo0e0lg0d550v.apps.googleusercontent.com"
+    />
+
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -30,12 +42,38 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>AppointJS</title>
   </head>
   <body>
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
+    <script type="text/javascript">
+      function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        //  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        //  console.log('Name: ' + profile.getName());
+        //  console.log('Image URL: ' + profile.getImageUrl());
+        //  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        var id_token = googleUser.getAuthResponse().id_token;
+
+        var url =
+          "https:///appt-booking-app.herokuapp.com/api/user/tokensignin";
+
+        // local testing only
+        //url = "http://localhost:3000/api/user/tokensignin";
+        $.post(url, { idtoken: id_token })
+          .done(function(data) {
+            sessionStorage.setItem("token", data.token);
+            //window.location.href = "http://localhost:3000/appointments"
+            window.location.href =
+              "https:///appt-booking-app.herokuapp.com/appointments";
+          })
+          .catch(function(err) {
+            console.log("error caught, invalid token!");
+          });
+      }
+    </script>
     <div id="root"></div>
     <!--
       This HTML file is a template.

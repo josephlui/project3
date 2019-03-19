@@ -8,11 +8,13 @@ const Exemplar = () => {
         <div className="row">
           <div className="col l1" />
           <div className="col l10 center-align">
-            <h1>Modern Appointment Booking Application</h1>
+            <h1>AppointJS</h1>
             <p>
-              We provide an efficient, organized, and convenient solution to
-              your companys booking needs.
+              Modern appointment booking application providing an efficient,
+              organized, and convenient solution to your business' booking
+              needs.
             </p>
+            <br />
             <img
               className="responsive-img"
               src={sprintboard}
