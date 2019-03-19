@@ -56,8 +56,8 @@ var API = {
     retrieveAppt: function (id, date) {
         return axios.get(BASE_APPT + '/'+ id + '/' + date);
     },
-    logout: function(){
-        return axios.post(BASE_USR + "/logout");
+    logout: function(config){
+        return axios.post(BASE_USR + "/logout", config);
     }
 }
 
