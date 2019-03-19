@@ -8,7 +8,6 @@ import SocialBrand from "./pages/main/SocialBrand";
 import Footer from "./pages/main/Footer";
 import { Route } from "react-router-dom";
 import Login from "./pages/Login";
-import Logout from "./pages/Logout";
 import Register from "./Auth/Register";
 import Appointments from "./Appointments/Appointments";
 import Connections from "./Connections/ConnectionInfo";

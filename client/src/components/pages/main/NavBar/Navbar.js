@@ -6,7 +6,7 @@ const Navbar = () => {
     <div className="navbar-fixed">
       <nav className="teal lighten-1">
         <div className="nav-wrapper">
-          <div href="#about" className="brand-logo left">
+          <div className="brand-logo left">
             <Link
               to="/"
               className={
