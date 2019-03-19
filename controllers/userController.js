@@ -17,21 +17,54 @@ async function verify(token) {
   return payload;
 }
 
+/**
+ * If user ID exists, refresh the name
+ * otherwise, create a new user
+ * @param {*} userId 
+ * @param {*} name 
+ */
+async function findUserByUserId (name, email) {
+
+  // upsert on userId
+  return db.User.findOneAndUpdate(
+    { userId: email},
+    {name: name }   ,
+    {new: true, upsert: true}
+  )
+}
+
+
 // Defining methods for the userController
 module.exports = {
     
-    /**
-     * Finds user by id
-     * @param {*} req 
-     * @param {*} res 
-     */
-    findById: function(req, res) {
-    db.User  
-      .findById(req.params.id)
-      .populate("appointmentBookingList")
-      .populate("approverList")
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+  /**
+    * Returns user object ID by token ID
+    * @param {*} req 
+    * @param {*} res 
+    */
+   findByTokenId: function(req, res) {
+    db.Session.findOne({tokenId: req.params.id})
+    .then(dbModel => {console.log (dbModel);res.json(dbModel)})
+    .catch(err => res.status(422).json(err));
+  },
+
+  findUserByToken: function (req, res) {
+    // upsert on userId
+    const current = new Date();
+    var expiryDate = new Date();
+    expiryDate.setMinutes = current.getMinutes + 3;
+    return db.Session.findOneAndUpdate(
+     { tokenId: req.params.token,
+      expiryDate: { $gte : current }
+    },
+     { expiryDate: expiryDate }   ,
+     {new: true, upsert: false}
+  )
+  },
+
+  logout: function (req, res) {
+    console.log ("request received to logout");
+    res.end();
   },
 
   /**
@@ -71,19 +104,49 @@ module.exports = {
          .catch(err => res.status(422).json(err));
   },
 
+ 
+  /**
+   * Validates id token from user
+   * if the token is valid, upserts user to user collection
+   * @param {*} req 
+   * @param {*} res 
+   */
   validateOauthID: function (req, res) {
+
+    var token = "";
+    // test code
+    // return new Promise ((resolve, reject ) => { 
+    //   token="abc1234def";
+    //   resolve({given_name: "f",email: "f@gmail.com"})})
     verify(req.body.idtoken)
     .then(result => {
+      //console.log ("result from firebase" + JSON.stringify(result));
+      if (!(result.name && result.email && result.email_verified)){
+        throw err ("invalid token");
+      }
+      token = result.sub
+      return result;
+    })
+    .then(result => findUserByUserId(result.given_name, result.email))
+    .then (user => {
+      return  db.Session.findOneAndUpdate(
+        {user: user._id},
+        {tokenId: token,
+         expiryDate: new Date(),
+         user: user._id,
+         name: user.given_name
+        },
+        {returnNewDocument: true, upsert: true});
+    })  
+    .then (() => {
+      res.status(200).json({
+        token: token
+      })})
+    .catch(err => {
+      console.log (err);
+      res.status(422).json(err);
+    }); 
 
-      // TODO
-      // query API to determine if user already exist.  If yes, retrieve profile, otherwise
-      // create a new one
-      // result.name => 'firstname lastname'
-      // result.email => 'xx@gmail.com'
-      // return a session key and have the user redirect to the profile with the session key
-      // create user 
-      res.json({id: "5c89c9b99a0ded002a6775a2" });
-    }).catch(console.error);
   }
+}
 
-};

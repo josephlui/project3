@@ -9,7 +9,7 @@ router.route("/")
 router.route("/:id")
   .put (scheduleController.update)
 
-// Matches with "/api/schedule/:userid/:date"
+// Matches with "/api/schedule/userId/:date"
 router.route("/:id/:date")
     .get(scheduleController.retrieveAppt);
 

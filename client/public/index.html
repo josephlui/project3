@@ -25,6 +25,7 @@
 
     <link rel="stylesheet" type="text/css" href="./styles/style.css" />
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 
     <meta
@@ -50,27 +51,27 @@
     <script type="text/javascript">
       function onSignIn(googleUser) {
         var profile = googleUser.getBasicProfile();
-        console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
-        console.log("Name: " + profile.getName());
-        console.log("Image URL: " + profile.getImageUrl());
-        console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
+        //  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        //  console.log('Name: ' + profile.getName());
+        //  console.log('Image URL: ' + profile.getImageUrl());
+        //  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
         var id_token = googleUser.getAuthResponse().id_token;
-        var xhr = new XMLHttpRequest();
-        xhr.open(
-          "POST",
-          "https:///appt-booking-app.herokuapp.com/api/user/tokensignin"
-        );
-        xhr.setRequestHeader(
-          "Content-Type",
-          "application/x-www-form-urlencoded"
-        );
-        xhr.onload = function(id) {
-          // now redirect to login
-          window.location.href =
-            "https:///appt-booking-app.herokuapp.com/profile?id=" + id;
-          //console.log('Signed in as: ' + xhr.responseText);
-        };
-        xhr.send("idtoken=" + id_token);
+
+        var url =
+          "https:///appt-booking-app.herokuapp.com/api/user/tokensignin";
+
+        // local testing only
+        //url = "http://localhost:3000/api/user/tokensignin";
+        $.post(url, { idtoken: id_token })
+          .done(function(data) {
+            sessionStorage.setItem("token", data.token);
+            //window.location.href = "http://localhost:3000/appointments"
+            window.location.href =
+              "https:///appt-booking-app.herokuapp.com/appointments";
+          })
+          .catch(function(err) {
+            console.log("error caught, invalid token!");
+          });
       }
     </script>
     <div id="root"></div>
