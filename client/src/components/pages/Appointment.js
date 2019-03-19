@@ -3,6 +3,7 @@ import _ from "lodash";
 import API from "../common/util/API"
 import { ReactAgenda , ReactAgendaCtrl, Modal } from 'react-agenda';
 require('moment/locale/en-ca.js');
+var moment = require('moment');
 
 var now = new Date();
 var colors= {
@@ -15,9 +16,6 @@ var colors= {
 
 var items = [];
 
-// TODO: get user ID, for now, just hard code the ID
-const userID = '5c89c22c6611afbd926c61d7';
-   
 
 export default class Appointment extends Component {
   constructor(props){
@@ -31,7 +29,8 @@ this.state = {
   locale:"en-ca",
   rowsPerHour:4,
   numberOfDays:7,
-  startDate: new Date()
+  startDate: new Date(),
+  userID: "",
 }
 this.handleRangeSelection = this.handleRangeSelection.bind(this)
 this.handleItemEdit = this.handleItemEdit.bind(this)
@@ -49,12 +48,19 @@ this.handleCellSelection = this.handleCellSelection.bind(this)
 
   componentDidMount(){
 
-   const todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 0)
-
-    API.retrieveAppt(userID, todayDate)
-    .then( result => {
+   let token = sessionStorage.getItem ("token")
+   API.retrieveUser(token)
+   .then(session => session.data.user)
+   .then (userID => {
+    const todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 0);
+    this.setState({userID: userID});
+    return API.retrieveAppt(userID, moment(todayDate).format('YYYY-MM-DD'))
+   })
+   .then( result => {
        if (result.status === 200) {
-       
+        //userId = "5c89c22c6611afbd926c61d7";
+       // sessionStorage.setItem("token", JSON.stringify(result.data));
+       console.log (result.data);
         items = _.map (result.data, booking => {
           var start = new Date(booking.startDate);
           var end = new Date(booking.endDate);
@@ -69,14 +75,9 @@ this.handleCellSelection = this.handleCellSelection.bind(this)
         this.setState({
           items: items
         });
-        
-       
-       }
-      })
-    
-
-
-  }
+      }
+    })
+}
 
 
 componentWillReceiveProps(next , last){
@@ -160,7 +161,7 @@ addNewEvent (items , newItems){
  
   this.setState({showModal:false ,selected:[] , items:items});
   this._closeModal();
-  API.scheduleAppt({...newItems, calendarOwnerUserId: userID, clientId: userID})
+  API.scheduleAppt({...newItems, calendarOwnerUserId: this.state.userID, clientId: this.state.userID})
   .then(result => {
     console.log ("Appt added: " + JSON.stringify(result.data)); 
   }).catch( err => console.log ("Error adding new appointment: " + err))
