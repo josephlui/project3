@@ -122,6 +122,7 @@ module.exports = {
   validateOauthID: function (req, res) {
 
     var token = "";
+    var sessionToken = req.body.idtoken;
     // test code
     // return new Promise ((resolve, reject ) => { 
     //   token="abc1234def";
@@ -148,7 +149,8 @@ module.exports = {
     })  
     .then (() => {
       res.status(200).json({
-        token: token
+        token: token,
+        sessionToken: sessionToken
       })})
     .catch(err => {
       console.log (err);

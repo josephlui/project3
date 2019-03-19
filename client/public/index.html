@@ -63,6 +63,7 @@
        $.post( url,{idtoken: id_token})
        .done(function (data){
           sessionStorage.setItem ("token", data.token);
+          sessionStorage.setItem ("sessionToken", data.sessionToken);
           //window.location.href = "http://localhost:3000/appointments"
           window.location.href = "https:///appt-booking-app.herokuapp.com/appointments";
        }).catch (function(err){

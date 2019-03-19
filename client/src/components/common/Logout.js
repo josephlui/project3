@@ -6,7 +6,7 @@ class Logout extends React.Component {
 
   componentDidMount() {
       
-    const config = {token:  sessionStorage.getItem("token") }
+    const config = {token:  sessionStorage.getItem("sessionToken") }
     API.logout(config)
   }
     
