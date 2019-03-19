@@ -138,7 +138,7 @@ module.exports = {
     //   resolve({given_name: "f",email: "f@gmail.com"})})
     verify(req.body.idtoken)
     .then(result => {
-      //console.log ("result from firebase" + JSON.stringify(result));
+      console.log ("result from firebase validate function: " + JSON.stringify(result));
       if (!(result.name && result.email && result.email_verified)){
         throw err ("invalid token");
       }
