@@ -72,6 +72,7 @@ module.exports = {
     //   console.log (result);
     //   res.end();
     // })
+    sessionStorage.clearItems();
     res.end();
     // client.revokeToken(token, function(err, body) {
     //   if (err) {
