@@ -7,10 +7,10 @@ const Features = () => {
         <div className="row">
           <div className="col m3" />
           <div className="col m6 center-align">
-            <h2>Our Team</h2>
+            <h2>About Us</h2>
             <p>
               Our team developed an amazing combination of vast functionality
-              and user's comfort as top priority.
+              and user's comfort on an accessible platform.
             </p>
           </div>
           <div className="col m3" />
@@ -18,35 +18,23 @@ const Features = () => {
         <div className="row">
           <div className="col m3">
             <i className="material-icons">create</i>
-            <h5>Pixel-Perfect Design</h5>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor dolore magna aliqua. Ut enim!
-            </p>
+            <h5>Joseph Lui </h5>
+            <p>Back-end</p>
           </div>
           <div className="col m3">
             <i className="material-icons">devices</i>
-            <h5>Thoroughly Responsive</h5>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor dolore magna aliqua. Ut enim!
-            </p>
+            <h5>Tahreem Butt</h5>
+            <p>Front-end</p>
           </div>
           <div className="col m3">
             <i className="material-icons">build</i>
-            <h5>Timely Support</h5>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor dolore magna aliqua. Ut enim!
-            </p>
+            <h5>Saumil Bapat</h5>
+            <p>Back-end</p>
           </div>
           <div className="col m3">
             <i className="material-icons">mood</i>
-            <h5>Happy Clients</h5>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor dolore magna aliqua. Ut enim!
-            </p>
+            <h5>Judy Hu</h5>
+            <p>Front-end</p>
           </div>
         </div>
       </div>

@@ -7,7 +7,7 @@ const Footer = () => {
         <div className="row">
           <div className="col s3" />
           <div className="col s6 center-align white-text">
-            © 2019 Joseph, Tahreem, Saumil, and Judy
+            © AppointJS. All rights reserved.
           </div>
           <div className="col s3" />
         </div>
