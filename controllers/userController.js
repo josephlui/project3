@@ -65,21 +65,22 @@ module.exports = {
   logout: function (req, res) {
     console.log ("request received to logout");
     var token = req.body.token;
-    // client.revokeToken(token, function(err, body) {
-    //   if (err) {
-    //     console.log (err);
-    //   } else {
-    //     console.log (body);
-    //   }
-    // });
-  
-    client.revokeCredentials(function(err, body) {
+    console.log (token);
+    client.revokeToken(token, function(err, body) {
       if (err) {
-            console.log (err);
-          } else {
-            console.log (body);
-          }
+        console.log (err);
+      } else {
+        console.log (body);
+      }
     });
+  
+    // client.revokeCredentials(function(err, body) {
+    //   if (err) {
+    //         console.log (err);
+    //       } else {
+    //         console.log (body);
+    //       }
+    // });
     res.end();
   },
 
@@ -141,6 +142,7 @@ module.exports = {
       if (!(result.name && result.email && result.email_verified)){
         throw err ("invalid token");
       }
+      console.log ("validating " + result);
       token = result.sub
       return result;
     })
