@@ -46,6 +46,15 @@ this.handleCellSelection = this.handleCellSelection.bind(this)
 
   }
 
+  componentWillMount(){
+    let token = sessionStorage.getItem ("token")
+
+    // if (!token){
+    //   this.context.router.push('/');
+    //  //this.props.history.replace('/');
+    // }
+  }
+
   componentDidMount(){
 
    let token = sessionStorage.getItem ("token")

@@ -1,6 +1,7 @@
 const db = require("../models");
 const {OAuth2Client} = require('google-auth-library');
 const client = new OAuth2Client("302735331685-j2de3ss9t9pcmout25hjo0e0lg0d550v.apps.googleusercontent.com");
+const axios = require('axios')
 
 async function verify(token) {
   const ticket = await client.verifyIdToken({
@@ -63,25 +64,23 @@ module.exports = {
   },
 
   logout: function (req, res) {
-    console.log ("request received to logout");
-    var token = req.body.token;
-    console.log (token);
-    client.revokeToken(token, function(err, body) {
-      if (err) {
-        console.log (err);
-      } else {
-        console.log (body);
-      }
-    });
-  
-    // client.revokeCredentials(function(err, body) {
-    //   if (err) {
-    //         console.log (err);
-    //       } else {
-    //         console.log (body);
-    //       }
-    // });
+    // console.log ("request received to logout");
+    // var token = req.body.token;
+    // console.log (token);
+    // return axios.get('https://mail.google.com/mail/u/0/?logout&hl=en')
+    // .then (result => {
+    //   console.log (result);
+    //   res.end();
+    // })
     res.end();
+    // client.revokeToken(token, function(err, body) {
+    //   if (err) {
+    //     console.log (err);
+    //   } else {
+    //     console.log (body);
+    //   }
+    // });
+  
   },
 
   /**
