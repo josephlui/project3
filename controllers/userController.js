@@ -65,12 +65,16 @@ module.exports = {
   logout: function (req, res) {
     console.log ("request received to logout");
     var token = req.body.token;
-    client.revokeToken(token, function(err, body) {
-      if (err) {
-        console.log (err);
-      } else {
-        console.log (body);
-      }
+    // client.revokeToken(token, function(err, body) {
+    //   if (err) {
+    //     console.log (err);
+    //   } else {
+    //     console.log (body);
+    //   }
+    // });
+  
+    oauth2Client.revokeCredentials(function(err, body) {
+
     });
     res.end();
   },
