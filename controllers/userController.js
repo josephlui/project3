@@ -74,7 +74,11 @@ module.exports = {
     // });
   
     client.revokeCredentials(function(err, body) {
-
+      if (err) {
+            console.log (err);
+          } else {
+            console.log (body);
+          }
     });
     res.end();
   },
