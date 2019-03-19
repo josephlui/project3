@@ -73,7 +73,7 @@ module.exports = {
     //   }
     // });
   
-    oauth2Client.revokeCredentials(function(err, body) {
+    client.revokeCredentials(function(err, body) {
 
     });
     res.end();
