@@ -26,6 +26,22 @@ module.exports = {
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
   },
+
+  /**
+   * Removes an appointment from the appointment collection
+   * @param {*} req 
+   * @param {*} res 
+   */
+  removeAppt: function (req, res) {
+  
+    console.log (req.body.apptId);
+    db.Appointment.findOneAndDelete(
+      {_id: req.body.apptId},
+      {})
+    .then(result => res.json (result))
+    .catch(err => res.status(422).json(err));
+  },
+
   
   /**
    * Creates an appointment and updates the appointmentBookingList for both user and client 
