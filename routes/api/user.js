@@ -9,7 +9,7 @@ router.route("/")
 
 // Matches with "/api/user/:id"
 router.route("/:id")
-    .get(userController.findById);
+    .get(userController.findByTokenId);
 
 // Matches with "/api/user/tokensignin"
 router.route ("/tokensignin")

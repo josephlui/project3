@@ -4,8 +4,8 @@ const BASE_USR = '/api/user';
 const BASE_APPT = '/api/schedule'
 
 var API = {
-    retrieveUser: function(userId){
-        return axios.get(BASE_USR + "/" + userId);
+    retrieveUser: function(token){
+        return axios.get(BASE_USR + "/" + token);
     },
     retrieveAllUsers: function() {
         return axios.get(BASE_USR);

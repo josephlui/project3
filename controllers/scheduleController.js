@@ -3,29 +3,28 @@ const db = require("../models");
 module.exports = {
 
   /**
-    * Finds and appointment by id
+    * Retrieves appointment by client id
     * @param {*} req 
     * @param {*} res 
     */
   retrieveAppt: function(req, res) {
      
       // add logic to make sure sessions is not expired
-      db.Session.findOne({ tokenId: req.params.id})
-      .then (session => {
-        // console.log (session);
-        // console.log (req.params.date);
-        // console.log (session.user);
-        // var tmp = '5c8b90c21a5607cc0168219c';
-        // var d = new Date(req.params.date);
-        // console.log (d);
+      // db.Session.findOne({ tokenId: req.params.id})
+      // .then (session => {
+      //   console.log (session);
+      //   console.log (req.params.date);
+      //   console.log (session.user);
+      //   var tmp = '5c89c22c6611afbd926c61d7';
+      //   // var d = new Date(req.params.date);
+      //   // console.log (d);
         return db.Appointment  
         .find({"startDate":
-            {"$gte": new Date(req.params.date)},
-             $or: [ { clientId: session.user }, { calenderOwnerUserId: session.user} ]}) 
+            {"$gte": new Date()},
+             $or: [ { clientId: req.params.id }, { calenderOwnerUserId: req.params.id } ]}) 
         .populate("clientId")
-      })
-      .then(dbModel => {console.log (dbModel);res.json(dbModel)})
-      .catch(err => res.status(422).json(err));
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
   },
   
   /**

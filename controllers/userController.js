@@ -38,17 +38,14 @@ async function findUserByUserId (name, email) {
 module.exports = {
     
   /**
-    * Finds user by id
+    * Returns user object ID by token ID
     * @param {*} req 
     * @param {*} res 
     */
-  findById: function(req, res) {
-    db.User  
-      .findById(req.params.id)
-      .populate("appointmentBookingList")
-      .populate("approverList")
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+   findByTokenId: function(req, res) {
+    db.Session.findOne({tokenId: req.params.id})
+    .then(dbModel => {console.log (dbModel);res.json(dbModel)})
+    .catch(err => res.status(422).json(err));
   },
 
   findUserByToken: function (req, res) {
@@ -123,7 +120,7 @@ module.exports = {
     //   resolve({given_name: "f",email: "f@gmail.com"})})
     verify(req.body.idtoken)
     .then(result => {
-      console.log ("result from firebase" + JSON.stringify(result));
+      //console.log ("result from firebase" + JSON.stringify(result));
       if (!(result.name && result.email && result.email_verified)){
         throw err ("invalid token");
       }
@@ -142,7 +139,6 @@ module.exports = {
         {returnNewDocument: true, upsert: true});
     })  
     .then (() => {
-      console.log (token);
       res.status(200).json({
         token: token
       })})
