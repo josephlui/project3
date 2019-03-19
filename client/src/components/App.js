@@ -11,7 +11,7 @@ import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import Register from "./Auth/Register";
 import Appointments from "./Appointments/Appointments";
-import Connections from "./Connections/ConnectionList";
+import Connections from "./Connections/ConnectionInfo";
 import NavbarPages from "./pages/main/NavBar/NavBarPages";
 
 const App = () => {
