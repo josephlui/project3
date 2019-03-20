@@ -3,7 +3,6 @@ import Navbar from "./pages/main/NavBar/Navbar";
 import Hero from "./pages/main/Hero";
 import Exemplar from "./pages/main/Exemplar";
 import Features from "./pages/main/Features";
-import About from "./pages/main/About";
 import SocialBrand from "./pages/main/SocialBrand";
 import Footer from "./pages/main/Footer";
 import { Route } from "react-router-dom";
@@ -37,7 +36,6 @@ const App = () => {
       <Route path="/" exact component={Hero} />
       <Route path="/" exact component={Exemplar} />
       <Route path="/" exact component={Features} />
-      <Route path="/" exact component={About} />
       <Route path="/" exact component={SocialBrand} />
 
       {/* Global Footer */}
