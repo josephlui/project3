@@ -27,8 +27,8 @@ const Navbar = () => {
           </a>
           <ul id="mobile-demo" className="right hide-on-med-and-down">
             <li>
-              <a
-                href="/login"
+              <Link
+                to="/login"
                 className={
                   window.location.pathname === "/login"
                     ? "nav-link active"
@@ -36,7 +36,7 @@ const Navbar = () => {
                 }
               >
                 Login{" "}
-              </a>
+              </Link>{" "}
             </li>
             <li>
               <Link
