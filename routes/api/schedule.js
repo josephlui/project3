@@ -13,8 +13,4 @@ router.route("/:id")
 router.route("/:id/:date")
     .get(scheduleController.retrieveAppt);
 
-// Matches with "/api/schedule/delete"
-router.route("/delete")
-  .delete(scheduleController.removeAppt);
-
 module.exports = router;
