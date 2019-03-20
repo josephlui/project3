@@ -1,5 +1,4 @@
 import React from "react";
-import Judy from "./judy.jpg";
 // import Col from "react";
 
 const Features = () => {
