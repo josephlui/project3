@@ -1,7 +1,6 @@
 const db = require("../models");
 const {OAuth2Client} = require('google-auth-library');
 const client = new OAuth2Client("302735331685-j2de3ss9t9pcmout25hjo0e0lg0d550v.apps.googleusercontent.com");
-const axios = require('axios')
 
 async function verify(token) {
   const ticket = await client.verifyIdToken({
@@ -64,24 +63,8 @@ module.exports = {
   },
 
   logout: function (req, res) {
-    // console.log ("request received to logout");
-    // var token = req.body.token;
-    // console.log (token);
-    // return axios.get('https://mail.google.com/mail/u/0/?logout&hl=en')
-    // .then (result => {
-    //   console.log (result);
-    //   res.end();
-    // })
-    sessionStorage.clearItems();
+    console.log ("request received to logout");
     res.end();
-    // client.revokeToken(token, function(err, body) {
-    //   if (err) {
-    //     console.log (err);
-    //   } else {
-    //     console.log (body);
-    //   }
-    // });
-  
   },
 
   /**
@@ -131,18 +114,16 @@ module.exports = {
   validateOauthID: function (req, res) {
 
     var token = "";
-    var sessionToken = req.body.idtoken;
     // test code
     // return new Promise ((resolve, reject ) => { 
     //   token="abc1234def";
     //   resolve({given_name: "f",email: "f@gmail.com"})})
     verify(req.body.idtoken)
     .then(result => {
-      console.log ("result from firebase validate function: " + JSON.stringify(result));
+      //console.log ("result from firebase" + JSON.stringify(result));
       if (!(result.name && result.email && result.email_verified)){
         throw err ("invalid token");
       }
-      console.log ("validating " + result);
       token = result.sub
       return result;
     })
@@ -159,8 +140,7 @@ module.exports = {
     })  
     .then (() => {
       res.status(200).json({
-        token: token,
-        sessionToken: sessionToken
+        token: token
       })})
     .catch(err => {
       console.log (err);
