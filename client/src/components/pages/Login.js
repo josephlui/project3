@@ -1,7 +1,7 @@
 // Import FirebaseAuth and firebase.
-import React from 'react';
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import firebase from 'firebase';
+import React from "react";
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import firebase from "firebase";
 
 // Configure Firebase.
 const config = {
@@ -15,7 +15,6 @@ const config = {
 firebase.initializeApp(config);
 
 class Login extends React.Component {
-
   // The component's Local state.
   state = {
     isSignedIn: false // Local signed-in state.
@@ -24,7 +23,7 @@ class Login extends React.Component {
   // Configure FirebaseUI.
   uiConfig = {
     // Popup signin flow rather than redirect flow.
-    signInFlow: 'popup',
+    signInFlow: "popup",
     // We will display Google and Facebook as auth providers.
     signInOptions: [
       //firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -38,9 +37,9 @@ class Login extends React.Component {
 
   // Listen to the Firebase Auth state and set the local state.
   componentDidMount() {
-    this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
-      (user) => this.setState({ isSignedIn: !!user })
-    );
+    this.unregisterAuthObserver = firebase
+      .auth()
+      .onAuthStateChanged(user => this.setState({ isSignedIn: !!user }));
   }
 
   // Make sure we un-register Firebase observers when the component unmounts.
@@ -56,46 +55,61 @@ class Login extends React.Component {
           <p>Please sign-in:</p>
 
           <div id="firebaseui_container">
-
             <div class="firebaseui-container firebaseui-page-provider-sign-in firebaseui-id-page-provider-sign-in firebaseui-use-spinner">
               <div class="firebaseui-card-content">
-
                 <ul class="firebaseui-idp-list">
                   <li class="firebaseui-list-item">
-
-            
-                    <button class="g-signin2 firebaseui-idp-button mdl-button mdl-js-button mdl-button--raised firebaseui-idp-google firebaseui-id-idp-button" data-provider-id="google.com" data-upgraded=",MaterialButton" data-onsuccess="onSignIn">
-                      <span class="firebaseui-idp-icon-wrapper"><img class="firebaseui-idp-icon" alt="" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" /></span>
-                      <span class="firebaseui-idp-text firebaseui-idp-text-long">Sign in with Google</span><span class="firebaseui-idp-text firebaseui-idp-text-short">Google</span></button>
-
+                    <button
+                      class="g-signin2 firebaseui-idp-button mdl-button mdl-js-button mdl-button--raised firebaseui-idp-google firebaseui-id-idp-button"
+                      data-provider-id="google.com"
+                      data-upgraded=",MaterialButton"
+                      data-onsuccess="onSignIn"
+                    >
+                      <span class="firebaseui-idp-icon-wrapper">
+                        <img
+                          class="firebaseui-idp-icon"
+                          alt=""
+                          src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                        />
+                      </span>
+                      <span class="firebaseui-idp-text firebaseui-idp-text-long">
+                        Sign in with Google
+                      </span>
+                      <span class="firebaseui-idp-text firebaseui-idp-text-short">
+                        Google
+                      </span>
+                    </button>
                   </li>
                 </ul>
-
               </div>
             </div>
           </div>
 
           {/* <div className="g-signin2" data-onsuccess="onSignIn" /> */}
 
-          < StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()} />
-        </div >
+          <StyledFirebaseAuth
+            uiConfig={this.uiConfig}
+            firebaseAuth={firebase.auth()}
+          />
+        </div>
       );
     }
     return (
       <div>
         <h1>My App</h1>
-        <p>Welcome {firebase.auth().currentUser.displayName}! You are now signed-in!</p>
-        <a onClick={() => firebase.auth().signOut()}>Sign-out</a>
+        <p>
+          Welcome {firebase.auth().currentUser.displayName}! You are now
+          signed-in!
+        </p>
+        <a href="#" onClick={() => firebase.auth().signOut()}>
+          Sign-out
+        </a>
       </div>
     );
   }
 }
 
 export default Login;
-
-
-
-
 
 /* <div className="g-signin2" data-onsuccess="onSignIn" /> */
 /* {$("button.firebaseui-idp-button.mdl-button.mdl-js-button.mdl-button--raised.firebaseui-idp-google.firebaseui-id-idp-button").addClass("g-signin2")} */
