@@ -109,3 +109,14 @@ p {
 .m-r-16 {
   margin-right: 16px;
 }
+
+.g-signin2{
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.abcRioButton  {
+  width:220px !important;
+}
