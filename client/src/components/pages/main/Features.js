@@ -35,7 +35,7 @@ const Features = () => {
           <div className="col m3">
             {/* <i className="material-icons">mood</i> */}
             {/* <Col xs={6} md={4}> */}
-            <img className="" src={Judy} rounded />
+            {/* <img className="" src={Judy} rounded /> */}
             {/* </Col> */}
 
             <h5>Judy Hu</h5>
