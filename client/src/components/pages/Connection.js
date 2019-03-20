@@ -1,6 +1,6 @@
 import React from "react";
 import API from "../common/util/API";
-import ConnectionList from "../connections/ConnectionList";
+import ConnectionList from "../Connections/ConnectionList";
 import Autocomplete from "../common/util/AutoComplete";
 
 class Connection extends React.Component {
