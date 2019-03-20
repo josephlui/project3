@@ -104,6 +104,7 @@ class Login extends React.Component {
         <a href="#" onClick={() => firebase.auth().signOut()}>
           Sign-out
         </a>
+        <div className="g-signin2" data-onsuccess="onSignIn" />
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import React from "react";
+import Judy from "./judy.jpg";
 
 const Features = () => {
   return (
@@ -22,16 +23,22 @@ const Features = () => {
             <p>Back-end</p>
           </div>
           <div className="col m3">
-            <i className="material-icons">devices</i>
+            {/* <i className="material-icons">devices</i> */}
+            <img className="profileShot" src={Judy} />
             <h5>Tahreem Butt</h5>
             <p>Front-end</p>
           </div>
           <div className="col m3">
-            <i className="material-icons">build</i>
+            {/* <i className="material-icons">build</i> */}
             <h5>Saumil Bapat</h5>
             <p>Back-end</p>
           </div>
           <div className="col m3">
+            {/* <i className="material-icons">mood</i> */}
+            {/* <Col xs={6} md={4}> */}
+            <img className="profileShot" src={Judy} />
+            {/* </Col> */}
+
             <i className="material-icons">mood</i>
             <h5>Judy Hu</h5>
             <p>Front-end</p>
