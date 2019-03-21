@@ -199,7 +199,11 @@ class ConnectionList extends React.Component {
           </div>
           <div className="col s12 m12 col-content center">
             {" "}
-            <ConnectionCalendar userId={this.state.userId} />
+            <ConnectionCalendar
+              userId={this.state.userId}
+              approverList={this.state.approverList}
+              refresh={"true"}
+            />
           </div>
         </div>
       </div>

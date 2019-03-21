@@ -54,11 +54,10 @@ export default class ConnectionCalendar extends Component {
   }
 
   componentDidMount() {
-    this.refreshItems();
+    // this.refreshItems();
   }
 
   refreshItems() {
-    let token = sessionStorage.getItem("token");
     console.log("---Calendar State---");
     console.log(this.state);
     const todayDate = new Date(
@@ -86,9 +85,12 @@ export default class ConnectionCalendar extends Component {
               classes: booking.color
             };
           });
-          this.setState({
-            items: items
-          });
+          if (this.state.refresh) {
+            this.setState({
+              items: items,
+              refresh: false
+            });
+          }
         }
       });
     }
@@ -97,8 +99,9 @@ export default class ConnectionCalendar extends Component {
   componentWillReceiveProps(props) {
     console.log("---Calendar Updated props---");
     console.log(props);
-    this.setState({ userId: props.userId });
+    this.setState({ userId: props.userId, refresh: true });
   }
+
   handleItemEdit(item, openModal) {
     console.log("handle Item Edit " + item);
     if (item && openModal === true) {
@@ -106,6 +109,7 @@ export default class ConnectionCalendar extends Component {
       return this._openModal();
     }
   }
+
   handleCellSelection(item, openModal) {
     console.log("handle cell selection " + item);
     if (this.state.selected && this.state.selected[0] === item) {
