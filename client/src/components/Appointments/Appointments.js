@@ -97,10 +97,18 @@ export default class Appointment extends Component {
   }
   handleItemEdit(item, openModal) {
     console.log("handle Item Edit " + item);
-    if (item && openModal === true) {
-      this.setState({ selected: [item] });
-      return this._openModal();
-    }
+    // 
+    API.retrieveAppt(item._id)
+    .then(appt => {
+      if (appt.status === 200
+         && result.data.calenderOwnerUserId === this.state.userID) {
+          if (item && openModal === true) {
+            this.setState({ selected: [item] });
+            return this._openModal();
+          }
+      }
+
+    })
   }
   handleCellSelection(item, openModal) {
     console.log("handle cell selection " + item);
@@ -150,9 +158,15 @@ export default class Appointment extends Component {
   removeEvent(items, item) {
     // console.log ("event removed " + JSON.stringify(item));
     // remove the item from the database using API
-    API.removeAppt(item._id).then(result => {
-      this.setState({ items: items });
-    });
+    API.retrieveAppt(item._id)
+    .then(appt => {
+      if (appt.status === 200
+         && result.data.calenderOwnerUserId === this.state.userID) {
+          API.removeAppt(item._id).then(result => {
+            this.setState({ items: items });
+          });
+      }
+    })
   }
 
   addNewEvent(items, newItems) {

@@ -5,7 +5,9 @@ const scheduleController = require("../../controllers/scheduleController");
 router.route("/").post(scheduleController.create);
 
 // Matches with "/api/schedule/:id"
-router.route("/:id").put(scheduleController.update);
+router.route("/:id")
+    .put(scheduleController.update)
+    .get(scheduleController.retrieveById);
 
 // Matches with "/api/schedule/userId/:date"
 router.route("/:id/:date").get(scheduleController.retrieveAppt);
