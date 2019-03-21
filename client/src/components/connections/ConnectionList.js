@@ -1,6 +1,7 @@
 import React from "react";
 import API from "../common/util/API";
 import Autocomplete from "../common/util/AutoComplete";
+import ConnectionInfo from "./ConnectionInfo";
 
 class ConnectionList extends React.Component {
   state = {
@@ -85,7 +86,7 @@ class ConnectionList extends React.Component {
           suggestions={this.state.userList.map(user => user.userId)}
           onSelect={this.onSelect}
         />
-        {/* <ConnectionList friendList={this.state.approverList} /> */}
+        <ConnectionInfo friendList={this.state.approverList} />
       </div>
     );
   }
