@@ -80,8 +80,6 @@ class ConnectionList extends React.Component {
         <br />
         {this.state.name}
         <br />
-        {this.state.approverList}
-        <br />
         <Autocomplete
           suggestions={this.state.userList.map(user => user.userId)}
           onSelect={this.onSelect}
