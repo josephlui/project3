@@ -182,7 +182,7 @@ export default class ConnectionCalendar extends Component {
     console.log (this.state.userId);
     var attendeeIDs = [];
     if (this.state.approverList) {
-        approverList.forEach(user => {
+      this.state.approverList.forEach(user => {
           // for now assume single attendee, booking another attendee
           attendeeIDs.push(user._id);
         });
