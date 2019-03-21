@@ -16,10 +16,11 @@ var colors = {
 
 var items = [];
 
-export default class Appointment extends Component {
+export default class ConnectionCalendar extends Component {
   constructor(props) {
     super(props);
-
+    console.log("---Calendar props---");
+    console.log(props);
     this.state = {
       items: [],
       selected: [],
@@ -28,8 +29,9 @@ export default class Appointment extends Component {
       locale: "en-ca",
       rowsPerHour: 4,
       numberOfDays: 7,
-      startDate: new Date(),
-      userID: ""
+      userId: props.userId,
+      approverList: props.approverList || [],
+      startDate: new Date()
     };
     this.handleRangeSelection = this.handleRangeSelection.bind(this);
     this.handleItemEdit = this.handleItemEdit.bind(this);
@@ -53,48 +55,65 @@ export default class Appointment extends Component {
   }
 
   componentDidMount() {
-    let token = sessionStorage.getItem("token");
-    API.retrieveUser(token)
-      .then(session => session.data.user)
-      .then(userID => {
-        const todayDate = new Date(
-          now.getFullYear(),
-          now.getMonth(),
-          now.getDate(),
-          10,
-          0
-        );
-        this.setState({ userID: userID });
-        return API.retrieveAppt(userID, moment(todayDate).format("YYYY-MM-DD"));
-      })
-      .then(result => {
-        if (result.status === 200) {
-          //userId = "5c89c22c6611afbd926c61d7";
-          // sessionStorage.setItem("token", JSON.stringify(result.data));
-          console.log(result.data);
-          items = _.map(result.data, booking => {
-            var start = new Date(booking.startDate);
-            var end = new Date(booking.endDate);
-            return {
-              _id: booking._id,
-              name: booking.description,
-              startDateTime: start,
-              endDateTime: end,
-              classes: booking.color
-            };
-          });
-          this.setState({
-            items: items
-          });
-        }
-      });
+    // this.refreshItems();
   }
 
-  componentWillReceiveProps(next, last) {
-    if (next.items) {
-      this.setState({ items: next.items });
+  refreshItems(userId, approverList) {
+    console.log("---Calendar State---");
+    console.log(this.state);
+    const todayDate = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      10,
+      0
+    );
+    if (userId) {
+      let userIds = [];
+      if (approverList)
+        approverList.forEach(user => {
+          userIds.push(user._id);
+        });
+      if (userId) userIds.push(userId);
+
+      console.log("---userIds---");
+      console.log(userIds);
+      API.retrieveAllAppt(userIds, moment(todayDate).format("YYYY-MM-DD"))
+        .then(result => {
+          if (result.status === 200) {
+            console.log("---Calendar Items---");
+            console.log(result.data);
+            items = _.map(result.data, booking => {
+              var start = new Date(booking.startDate);
+              var end = new Date(booking.endDate);
+              return {
+                _id: booking._id,
+                name: booking.description,
+                startDateTime: start,
+                endDateTime: end,
+                classes: booking.color
+              };
+            });
+            this.setState({
+              items: items,
+              userId: userId,
+              approverList: approverList
+            });
+          }
+        })
+        .catch(ex => {
+          console.log("---ex---");
+          console.log(ex);
+        });
     }
   }
+
+  componentWillReceiveProps(props) {
+    console.log("---Calendar Updated props---");
+    console.log(props);
+    this.refreshItems(props.userId, props.approverList);
+  }
+
   handleItemEdit(item, openModal) {
     console.log("handle Item Edit " + item);
     if (item && openModal === true) {
@@ -102,6 +121,7 @@ export default class Appointment extends Component {
       return this._openModal();
     }
   }
+
   handleCellSelection(item, openModal) {
     console.log("handle cell selection " + item);
     if (this.state.selected && this.state.selected[0] === item) {
@@ -186,6 +206,8 @@ export default class Appointment extends Component {
   }
 
   render() {
+    //this.refreshItems();
+    // this.refreshItems();
     // var AgendaItem = function(props){
     //   return <div style={{display:'block', position:'absolute' , background:'#FFF'}}>{props.item.name} <button onClick={()=> props.edit(props.item)}>Edit </button></div>
     // }

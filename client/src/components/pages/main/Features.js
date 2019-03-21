@@ -1,47 +1,49 @@
 import React from "react";
+import Joe from "./joe.jpg";
 import Judy from "./judy.jpg";
+import Saumil from "./saumil.jpg";
+import Tahreem from "./tahreem.jpg";
 
 const Features = () => {
   return (
     <section id="features" className="grey lighten-4">
       <div className="container">
         <div className="row">
-          <div className="col m3" />
-          <div className="col m6 center-align">
+          <div className="col m1" />
+          <div className="col m10 center-align">
             <h2>About Us</h2>
             <p>
-              Our team developed an amazing combination of vast functionality
-              and user's comfort on an accessible platform.
+              Our team started with the vision of making booking your next
+              appointment simple. <br />
             </p>
           </div>
           <div className="col m3" />
         </div>
         <div className="row">
           <div className="col m3">
-            <i className="material-icons">create</i>
+            <img className="profileShot" src={Joe} alt="Joe" />
             <h5>Joseph Lui </h5>
-            <p>Back-end</p>
+            <p>CTO</p>
           </div>
           <div className="col m3">
             {/* <i className="material-icons">devices</i> */}
-            <img className="profileShot" src={Judy} />
+            <img className="profileShot" src={Tahreem} alt="tahreem" />
             <h5>Tahreem Butt</h5>
-            <p>Front-end</p>
+            <p>Product Manager</p>
           </div>
           <div className="col m3">
             {/* <i className="material-icons">build</i> */}
+            <img className="profileShot" src={Saumil} alt="saumil" />
             <h5>Saumil Bapat</h5>
-            <p>Back-end</p>
+            <p>Customer Experience</p>
           </div>
           <div className="col m3">
             {/* <i className="material-icons">mood</i> */}
             {/* <Col xs={6} md={4}> */}
-            <img className="profileShot" src={Judy} />
+            <img className="profileShot" src={Judy} alt="judy" />
             {/* </Col> */}
-
-            <i className="material-icons">mood</i>
             <h5>Judy Hu</h5>
-            <p>Front-end</p>
+            <p>Principle Designer</p>
           </div>
         </div>
       </div>

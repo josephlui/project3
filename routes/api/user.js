@@ -2,21 +2,19 @@ const router = require("express").Router();
 const userController = require("../../controllers/userController");
 
 // Matches with "/api/user"
-router.route("/")
+router
+  .route("/")
   .post(userController.register)
-  .put(userController.updateApproverList)
-  .get(userController.retrieveAll)
+  .put(userController.updateUser)
+  .get(userController.retrieveAll);
 
 // Matches with "/api/user/:id"
-router.route("/:id")
-    .get(userController.findByTokenId);
+router.route("/:id").get(userController.findByTokenId);
 
 // Matches with "/api/user/tokensignin"
-router.route ("/tokensignin")
-    .post(userController.validateOauthID);
+router.route("/tokensignin").post(userController.validateOauthID);
 
 // Matches with "/api/user/logout"
-router.route ("/logout")
-    .post(userController.logout);
+router.route("/logout").post(userController.logout);
 
 module.exports = router;

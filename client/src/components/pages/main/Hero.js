@@ -10,17 +10,10 @@ const Hero = () => {
     >
       <div className="container valign-wrapper jc-center">
         <div className="valign center-align white-text">
-          <p className="flowtext hide-on-small-only">
-            We help your business book appointments
-          </p>
-          <h3>Appointment Booking Application</h3>
-
-          <p className="big">
-            Created by:
-            <br /> <br />
-            Joseph, Tahreem, Saumil, and Judy
-          </p>
-          <br />
+          <h3>AppointJS</h3>
+          {/* <p className="flowtext hide-on-medium-only black-text">
+            Appointment Booking Application
+          </p> */}
           <a href="/login" className="btn waves-light waves-effect m-r-16">
             Log In
           </a>
