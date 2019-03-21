@@ -30,6 +30,7 @@ export default class ConnectionCalendar extends Component {
       rowsPerHour: 4,
       numberOfDays: 7,
       userId: props.userId,
+      approverList: props.approverList || [],
       startDate: new Date()
     };
     this.handleRangeSelection = this.handleRangeSelection.bind(this);
@@ -57,7 +58,7 @@ export default class ConnectionCalendar extends Component {
     // this.refreshItems();
   }
 
-  refreshItems() {
+  refreshItems(userId, approverList) {
     console.log("---Calendar State---");
     console.log(this.state);
     const todayDate = new Date(
@@ -67,39 +68,50 @@ export default class ConnectionCalendar extends Component {
       10,
       0
     );
-    if (this.state.userId) {
-      API.retrieveAppt(
-        this.state.userId,
-        moment(todayDate).format("YYYY-MM-DD")
-      ).then(result => {
-        if (result.status === 200) {
-          console.log(result.data);
-          items = _.map(result.data, booking => {
-            var start = new Date(booking.startDate);
-            var end = new Date(booking.endDate);
-            return {
-              _id: booking._id,
-              name: booking.description,
-              startDateTime: start,
-              endDateTime: end,
-              classes: booking.color
-            };
-          });
-          if (this.state.refresh) {
+    if (userId) {
+      let userIds = [];
+      if (approverList)
+        approverList.forEach(user => {
+          userIds.push(user._id);
+        });
+      if (userId) userIds.push(userId);
+
+      console.log("---userIds---");
+      console.log(userIds);
+      API.retrieveAllAppt(userIds, moment(todayDate).format("YYYY-MM-DD"))
+        .then(result => {
+          if (result.status === 200) {
+            console.log("---Calendar Items---");
+            console.log(result.data);
+            items = _.map(result.data, booking => {
+              var start = new Date(booking.startDate);
+              var end = new Date(booking.endDate);
+              return {
+                _id: booking._id,
+                name: booking.description,
+                startDateTime: start,
+                endDateTime: end,
+                classes: booking.color
+              };
+            });
             this.setState({
               items: items,
-              refresh: false
+              userId: userId,
+              approverList: approverList
             });
           }
-        }
-      });
+        })
+        .catch(ex => {
+          console.log("---ex---");
+          console.log(ex);
+        });
     }
   }
 
   componentWillReceiveProps(props) {
     console.log("---Calendar Updated props---");
     console.log(props);
-    this.setState({ userId: props.userId, refresh: true });
+    this.refreshItems(props.userId, props.approverList);
   }
 
   handleItemEdit(item, openModal) {
@@ -194,7 +206,8 @@ export default class ConnectionCalendar extends Component {
   }
 
   render() {
-    this.refreshItems();
+    //this.refreshItems();
+    // this.refreshItems();
     // var AgendaItem = function(props){
     //   return <div style={{display:'block', position:'absolute' , background:'#FFF'}}>{props.item.name} <button onClick={()=> props.edit(props.item)}>Edit </button></div>
     // }

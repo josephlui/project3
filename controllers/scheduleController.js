@@ -1,4 +1,5 @@
 const db = require("../models");
+const ObjectId = require("mongodb").ObjectID;
 
 module.exports = {
   /**
@@ -19,6 +20,39 @@ module.exports = {
     return db.Appointment.find({
       startDate: { $gte: new Date() },
       $or: [{ clientId: req.params.id }, { calenderOwnerUserId: req.params.id }]
+    })
+      .populate("clientId")
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+
+  /**
+   * Retrieves appointment by client id
+   * @param {*} req
+   * @param {*} res
+   */
+  retrieveAllAppt: function(req, res) {
+    // add logic to make sure sessions is not expired
+    // db.Session.findOne({ tokenId: req.params.id})
+    // .then (session => {
+    //   console.log (session);
+    //   console.log (req.params.date);
+    //   console.log (session.user);
+    //   var tmp = '5c89c22c6611afbd926c61d7';
+    //   // var d = new Date(req.params.date);
+    //   // console.log (d);
+    var ids = req.body.userIds;
+    var obj_ids = ids.map(function(id) {
+      return ObjectId(id);
+    });
+    console.log("---obj_ids---");
+    console.log(obj_ids);
+    return db.Appointment.find({
+      startDate: { $gte: new Date() },
+      $or: [
+        { clientId: { $in: obj_ids } },
+        { calenderOwnerUserId: { $in: obj_ids } }
+      ]
     })
       .populate("clientId")
       .then(dbModel => res.json(dbModel))
