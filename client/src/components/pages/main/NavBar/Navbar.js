@@ -27,7 +27,7 @@ const Navbar = () => {
             : "nav-link"
         }
       >
-        Appointment{" "}
+        My Calendar{" "}
       </Link>
     </li>
   ) : (
@@ -43,7 +43,7 @@ const Navbar = () => {
             : "nav-link"
         }
       >
-        Profile{" "}
+        Book Meeting{" "}
       </Link>
     </li>
   ) : (

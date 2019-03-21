@@ -192,36 +192,46 @@ export default class Appointment extends Component {
 
     return (
       <div className="content-expanded ">
-        <div className="control-buttons">
-          <button
-            className="button-control"
-            onClick={this.changeView.bind(null, 7)}
-          >
-            {" "}
-            7 days{" "}
-          </button>
-          <button
-            className="button-control"
-            onClick={this.changeView.bind(null, 4)}
-          >
-            {" "}
-            4 days{" "}
-          </button>
-          <button
-            className="button-control"
-            onClick={this.changeView.bind(null, 3)}
-          >
-            {" "}
-            3 day{" "}
-          </button>
-          <button
-            className="button-control"
-            onClick={this.changeView.bind(null, 1)}
-          >
-            {" "}
-            1 day{" "}
-          </button>
+        <br />
+        <div className="row">
+          <div className="col s12 m3 center">
+            <button
+              className="waves-effect waves-light btn"
+              onClick={this.changeView.bind(null, 1)}
+            >
+              {" "}
+              1 day{" "}
+            </button>
+          </div>
+          <div className="col s12 m3 center">
+            <button
+              className="waves-effect waves-light btn"
+              onClick={this.changeView.bind(null, 3)}
+            >
+              {" "}
+              3 day{" "}
+            </button>
+          </div>
+          <div className="col s12 m3 center">
+            <button
+              className="waves-effect waves-light btn"
+              onClick={this.changeView.bind(null, 4)}
+            >
+              {" "}
+              4 days{" "}
+            </button>
+          </div>
+          <div className="col s12 m3 center">
+            <button
+              className="waves-effect waves-light btn"
+              onClick={this.changeView.bind(null, 7)}
+            >
+              {" "}
+              7 days{" "}
+            </button>
+          </div>
         </div>
+        <div className="control-buttons" />
 
         <ReactAgenda
           minDate={new Date(now.getFullYear(), now.getMonth() - 3)}
