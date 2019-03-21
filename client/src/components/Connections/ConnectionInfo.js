@@ -6,7 +6,7 @@ class ConnectionInfo extends React.Component {
       <div className="col s12 m13 col-content center">
         <ul key={approver._id}>
           <li>
-            <h3 className="teal-text">Client</h3>
+            <h3 className="teal-text">Attendee</h3>
           </li>
           <li>
             <h5>{approver.name}</h5>
@@ -18,10 +18,10 @@ class ConnectionInfo extends React.Component {
         <br />
         <button
           className="waves-effect waves-light btn"
-          onClick={() => this.props.removeApprover(approver)}
+          onClick={() => this.props.removeApprover(approver.userId)}
         >
           {" "}
-          Remove Approver{" "}
+          Remove Attendee{" "}
         </button>
       </div>
     ));

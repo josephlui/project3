@@ -1,4 +1,5 @@
 import React from "react";
+import _ from "lodash";
 import API from "../common/util/API";
 import Autocomplete from "../common/util/AutoComplete";
 import ConnectionInfo from "./ConnectionInfo";
@@ -33,12 +34,6 @@ class ConnectionList extends React.Component {
           console.log("---user---");
           console.log(user);
 
-          let userList = result.data.filter(user => {
-            return user._id !== this.state.userId;
-          });
-          console.log("---userList---");
-          console.log(userList);
-
           let approverList = [];
           if (user) {
             approverList = result.data.filter(approver => {
@@ -46,6 +41,19 @@ class ConnectionList extends React.Component {
               console.log(user.approverList);
               return user.approverList.includes(approver._id);
             });
+          }
+
+          let userList = [];
+          if (user) {
+            userList = result.data.filter(userVar => {
+              //  true;
+              return (
+                !user.approverList.includes(userVar.userId) &&
+                userVar._id !== this.state.userId
+              );
+            });
+            console.log("---userList---");
+            console.log(userList);
           }
 
           console.log("---approverList---");
@@ -64,46 +72,81 @@ class ConnectionList extends React.Component {
       });
   }
 
-  onSelect = clientId => {
-    const client = clientId
-      ? this.state.userList.filter(user => user.userId === clientId)[0]
+  updateUser = (attendeeId, operation) => {
+    console.log("---operation---");
+    console.log(operation);
+
+    console.log("---attendeeId---");
+    console.log(attendeeId);
+
+    const attendee = attendeeId
+      ? this.state.userList.filter(user => user.userId === attendeeId)[0]
       : null;
-    API.updateApproverList(this.state.id, client ? client._id : null)
-      .then(result => {
-        if (result.status === 200) {
-          this.setState((state, props) => {
-            return {
-              approverList: [...state.approverList, client],
-              userList: state.userList.filter(
-                user => user.userId !== client.userId
-              )
-            };
-          });
+    console.log("---attendee---");
+    console.log(attendee);
+
+    if (this.state.user) {
+      console.log("---Old user---");
+      console.log(this.state.user);
+
+      let user = this.state.user;
+      if (attendee) {
+        if (operation === "add") {
+          user.approverList = [
+            ...user.approverList.filter(userId => userId != attendee._id),
+            attendee._id
+          ];
         } else {
-          console.log("error updating approver list");
+          user.approverList = [
+            ...user.approverList.filter(userId => userId != attendee._id)
+          ];
         }
-      })
-      .catch(err => console.log("exception caught updating approver list"));
+      }
+      let updateUser = {};
+      updateUser.approverList = _.chain(user.approverList)
+        .uniq()
+        .compact();
+      console.log("---Update user---");
+      console.log(user);
+
+      API.updateUser(this.state.userId, updateUser)
+        .then(result => {
+          if (result.status === 200) {
+            if (operation === "add") {
+              this.setState((state, props) => {
+                return {
+                  approverList: [...state.approverList, attendee],
+                  user: user,
+                  userList: this.state.userList.filter(
+                    user => user.userId !== attendeeId
+                  )
+                };
+              });
+            } else {
+              this.setState((state, props) => {
+                return {
+                  userList: [...state.userList, attendee],
+                  user: user,
+                  approverList: this.state.approverList.filter(
+                    user => user.userId !== attendeeId
+                  )
+                };
+              });
+            }
+          } else {
+            console.log("error updating approver list");
+          }
+        })
+        .catch(err => console.log("exception caught updating approver list"));
+    }
   };
 
-  removeApprover = user => {
-    API.removeApprover(this.state.id, user ? user._id : null)
-      .then(result => {
-        if (result.status === 200) {
-          this.setState((state, props) => {
-            var approverList = state.approverList.filter(
-              approver => approver.userId !== user.userId
-            );
-            return {
-              approverList,
-              userList: [...state.userList, user]
-            };
-          });
-        } else {
-          console.log("error updating approver list");
-        }
-      })
-      .catch(err => console.log("exception caught updating approver list"));
+  onSelect = attendeeId => {
+    this.updateUser(attendeeId, "add");
+  };
+
+  removeApprover = attendeeId => {
+    this.updateUser(attendeeId, "remove");
   };
 
   render() {
@@ -111,6 +154,12 @@ class ConnectionList extends React.Component {
     console.log(this.state.user);
     const username = this.state.user ? this.state.user.name : "no name";
     const userId = this.state.user ? this.state.user.userId : "no id";
+    var userSuggestions = [];
+    if (this.state.userList) {
+      userSuggestions = this.state.userList.map(user => user.userId);
+    }
+    console.log("---userSuggestions---");
+    console.log(userSuggestions);
     return (
       <div>
         <div className="row center">
@@ -124,9 +173,10 @@ class ConnectionList extends React.Component {
               </li>
               <li>{userId}</li>
             </ul>
-          </div>
+          </div>{" "}
+          <div className="col s12 m12 col-content center" />{" "}
           <Autocomplete
-            suggestions={this.state.userList.map(user => user.userId)}
+            suggestions={userSuggestions}
             onSelect={this.onSelect}
           />
           <ConnectionInfo

@@ -125,6 +125,9 @@ class Autocomplete extends Component {
       <div className="col s12 m12 col-content center">
         <div className="form-field">
           <div className="form-field__control">
+            <div>
+              <h3 className="teal-text">Add Attendee</h3>
+            </div>
             <input
               id="fieldInput"
               type="text"

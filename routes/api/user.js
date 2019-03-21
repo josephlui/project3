@@ -5,14 +5,11 @@ const userController = require("../../controllers/userController");
 router
   .route("/")
   .post(userController.register)
-  .put(userController.updateApproverList)
+  .put(userController.updateUser)
   .get(userController.retrieveAll);
 
 // Matches with "/api/user/:id"
-router
-  .route("/:id")
-  .get(userController.findByTokenId)
-  .delete(userController.removeApprover);
+router.route("/:id").get(userController.findByTokenId);
 
 // Matches with "/api/user/tokensignin"
 router.route("/tokensignin").post(userController.validateOauthID);

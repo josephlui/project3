@@ -92,24 +92,20 @@ module.exports = {
   },
 
   /**
-   * Updates the approver list of a user to allow user to view another user's calendar
+   * Updates the user user to allow user; used to update approver list.
    * @param {*} req
    * @param {*} res
    */
-  updateApproverList: function(req, res) {
-    db.User.findOneAndUpdate(
-      { _id: req.body.userId },
-      { $push: { approverList: req.body.clientId } },
-      { new: true }
-    )
+  updateUser: function(req, res) {
+    console.log(req.body);
+    db.User.findOneAndUpdate({ _id: req.body.userId }, req.body.user, {
+      new: true
+    })
       .then(updateResult => res.json(updateResult))
-      .catch(err => res.status(422).json(err));
-  },
-
-  removeApprover: function(req, res) {
-    db.User.update({ _id: id }, { $pull: { approverList: req.params.id } })
-      .then(updateResult => res.json(updateResult))
-      .catch(err => res.status(422).json(err));
+      .catch(err => {
+        console.log(err);
+        res.status(422).json(err);
+      });
   },
   /**
    * Validates id token from user
