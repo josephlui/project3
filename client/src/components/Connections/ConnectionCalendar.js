@@ -178,6 +178,22 @@ export default class ConnectionCalendar extends Component {
   addNewEvent(items, newItems) {
     this.setState({ showModal: false, selected: [], items: items });
     this._closeModal();
+    console.log (newItems);
+    console.log (user)
+    if (this.state.approverList) {
+        approverList.forEach(user => {
+          // for now assume single attendee, booking another attendee
+          userIds.push(user._id);
+        });
+    } else {
+        // self booking
+        userIds.push (this.state.userId)
+    }
+
+    console.log ("appointment detail " + newItems);
+    console.log ("appointment owner " + this.state.userId);
+    console.log ("users " + userIds);
+
     API.scheduleAppt({
       ...newItems,
       calendarOwnerUserId: this.state.userID,
