@@ -1,4 +1,5 @@
 import React from "react";
+import Joe from "./joe.jpg";
 import Judy from "./judy.jpg";
 import Saumil from "./saumil.jpg";
 import Tahreem from "./tahreem.jpg";
@@ -20,7 +21,7 @@ const Features = () => {
         </div>
         <div className="row">
           <div className="col m3">
-            <i className="material-icons">create</i>
+            <img className="profileShot" src={Joe} alt="Joe" />
             <h5>Joseph Lui </h5>
             <p>CTO</p>
           </div>

@@ -194,7 +194,7 @@ export default class Appointment extends Component {
       <div className="content-expanded ">
         <br />
         <div className="row">
-          <div className="col s12 m3 center">
+          <div className="col s12 m3 col-content center">
             <button
               className="waves-effect waves-light btn"
               onClick={this.changeView.bind(null, 1)}
@@ -203,7 +203,7 @@ export default class Appointment extends Component {
               1 day{" "}
             </button>
           </div>
-          <div className="col s12 m3 center">
+          <div className="col s12 m3 col-content center">
             <button
               className="waves-effect waves-light btn"
               onClick={this.changeView.bind(null, 3)}
@@ -212,7 +212,7 @@ export default class Appointment extends Component {
               3 day{" "}
             </button>
           </div>
-          <div className="col s12 m3 center">
+          <div className="col s12 m3 col-content center">
             <button
               className="waves-effect waves-light btn"
               onClick={this.changeView.bind(null, 4)}
@@ -221,7 +221,7 @@ export default class Appointment extends Component {
               4 days{" "}
             </button>
           </div>
-          <div className="col s12 m3 center">
+          <div className="col s12 m3 col-content center">
             <button
               className="waves-effect waves-light btn"
               onClick={this.changeView.bind(null, 7)}
