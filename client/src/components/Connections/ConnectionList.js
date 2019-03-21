@@ -48,7 +48,7 @@ class ConnectionList extends React.Component {
             userList = result.data.filter(userVar => {
               //  true;
               return (
-                !user.approverList.includes(userVar.userId) &&
+                !user.approverList.includes(userVar._id) &&
                 userVar._id !== this.state.userId
               );
             });
@@ -79,9 +79,17 @@ class ConnectionList extends React.Component {
     console.log("---attendeeId---");
     console.log(attendeeId);
 
-    const attendee = attendeeId
-      ? this.state.userList.filter(user => user.userId === attendeeId)[0]
-      : null;
+    let attendee;
+    if (operation == "add") {
+      attendee = attendeeId
+        ? this.state.userList.filter(user => user.userId === attendeeId)[0]
+        : null;
+    } else {
+      attendee = attendeeId
+        ? this.state.approverList.filter(user => user.userId === attendeeId)[0]
+        : null;
+    }
+
     console.log("---attendee---");
     console.log(attendee);
 
@@ -106,13 +114,15 @@ class ConnectionList extends React.Component {
       updateUser.approverList = _.chain(user.approverList)
         .uniq()
         .compact();
-      console.log("---Update user---");
-      console.log(user);
+      console.log("---updateUser---");
+      console.log(updateUser);
 
       API.updateUser(this.state.userId, updateUser)
         .then(result => {
           if (result.status === 200) {
             if (operation === "add") {
+              console.log("---state---");
+              console.log(this.state);
               this.setState((state, props) => {
                 return {
                   approverList: [...state.approverList, attendee],
@@ -150,8 +160,8 @@ class ConnectionList extends React.Component {
   };
 
   render() {
-    console.log("---state user---");
-    console.log(this.state.user);
+    console.log("---render state---");
+    console.log(this.state);
     const username = this.state.user ? this.state.user.name : "no name";
     const userId = this.state.user ? this.state.user.userId : "no id";
     var userSuggestions = [];
