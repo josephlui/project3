@@ -179,20 +179,21 @@ export default class ConnectionCalendar extends Component {
     this.setState({ showModal: false, selected: [], items: items });
     this._closeModal();
     console.log (newItems);
-    console.log (user)
+    console.log (this.state.userId);
+    var attendeeIDs = [];
     if (this.state.approverList) {
         approverList.forEach(user => {
           // for now assume single attendee, booking another attendee
-          userIds.push(user._id);
+          attendeeIDs.push(user._id);
         });
     } else {
         // self booking
-        userIds.push (this.state.userId)
+        attendeeIDs.push (this.state.userId)
     }
 
     console.log ("appointment detail " + newItems);
     console.log ("appointment owner " + this.state.userId);
-    console.log ("users " + userIds);
+    console.log ("users " + attendeeIDs);
 
     API.scheduleAppt({
       ...newItems,
