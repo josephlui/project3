@@ -106,6 +106,11 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
+  removeApprover: function(req, res) {
+    db.User.update({ _id: id }, { $pull: { approverList: req.params.id } })
+      .then(updateResult => res.json(updateResult))
+      .catch(err => res.status(422).json(err));
+  },
   /**
    * Validates id token from user
    * if the token is valid, upserts user to user collection

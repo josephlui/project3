@@ -10,7 +10,6 @@ import Login from "./pages/Login";
 import Register from "./Auth/Register";
 import Appointments from "./Appointments/Appointments";
 import ConnectionList from "./Connections/ConnectionList";
-import NavbarPages from "./pages/main/NavBar/NavBarPages";
 import Logout from "./common/Logout";
 
 const App = () => {

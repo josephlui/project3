@@ -5,55 +5,70 @@ import ConnectionInfo from "./ConnectionInfo";
 
 class ConnectionList extends React.Component {
   state = {
-    userId: "",
-    name: "",
+    user: null,
     approverList: [],
     userList: [],
     connectionRequestList: []
   };
+
   componentDidMount() {
-    API.retrieveAllUsers().then(result => {
-      if (result.status === 200) {
-        let clients = result.data;
+    let usertoken = sessionStorage.getItem("token");
+    console.log("---Token---" + usertoken);
+    API.retrieveUser(usertoken)
+      .then(session => session.data.user)
+      .then(userId => {
+        console.log("---userId---" + userId);
+        this.setState({ userId: userId });
+      });
 
-        // Find user, for now, just take the first id
-        // TODO: create a filter to find the login ID
-        const user = result.data[0];
-        delete clients[0];
-        // END TODO
+    API.retrieveAllUsers()
+      .then(result => {
+        if (result.status === 200) {
+          console.log("---retrieveAllUsers.result.data---");
+          console.log(result.data);
 
-        const friendListIDs = user.approverList;
+          let user = result.data.filter(user => {
+            return user._id === this.state.userId;
+          })[0];
+          console.log("---user---");
+          console.log(user);
 
-        const friendList = [];
-        const filteredClientList = [];
+          let userList = result.data.filter(user => {
+            return user._id !== this.state.userId;
+          });
+          console.log("---userList---");
+          console.log(userList);
 
-        clients.forEach(client => {
-          friendListIDs.includes(client._id)
-            ? friendList.push(client)
-            : filteredClientList.push(client);
-        });
-        clients = filteredClientList;
+          let approverList = [];
+          if (user) {
+            approverList = result.data.filter(approver => {
+              console.log("---App.user.approverList---");
+              console.log(user.approverList);
+              return user.approverList.includes(approver._id);
+            });
+          }
 
-        const name = user.name;
-        const userId = user.userId;
-        const id = user._id;
+          console.log("---approverList---");
+          console.log(approverList);
 
-        this.setState({
-          userList: clients,
-          approverList: friendList,
-          name: name,
-          userId: userId,
-          id: id
-        });
-      }
-    });
+          this.setState({
+            user: user,
+            userList: userList,
+            approverList: approverList
+          });
+        }
+      })
+      .catch(ex => {
+        console.log("---Exception---");
+        console.log(ex);
+      });
   }
 
   onSelect = clientId => {
-    const client = this.state.userList.filter(
-      user => user.userId === clientId
-    )[0];
-    API.updateApproverList(this.state.id, client._id)
+    const client = clientId
+      ? this.state.userList.filter(user => user.userId === clientId)[0]
+      : null;
+    API.updateApproverList(this.state.id, client ? client._id : null)
       .then(result => {
         if (result.status === 200) {
           this.setState((state, props) => {
@@ -71,20 +86,54 @@ class ConnectionList extends React.Component {
       .catch(err => console.log("exception caught updating approver list"));
   };
 
+  removeApprover = user => {
+    API.removeApprover(this.state.id, user ? user._id : null)
+      .then(result => {
+        if (result.status === 200) {
+          this.setState((state, props) => {
+            var approverList = state.approverList.filter(
+              approver => approver.userId !== user.userId
+            );
+            return {
+              approverList,
+              userList: [...state.userList, user]
+            };
+          });
+        } else {
+          console.log("error updating approver list");
+        }
+      })
+      .catch(err => console.log("exception caught updating approver list"));
+  };
+
   render() {
+    console.log("---state user---");
+    console.log(this.state.user);
+    const username = this.state.user ? this.state.user.name : "no name";
+    const userId = this.state.user ? this.state.user._id : "no id";
     return (
       <div>
-        Friend's connection page
-        <br />
-        {this.state.userId}
-        <br />
-        {this.state.name}
-        <br />
-        <Autocomplete
-          suggestions={this.state.userList.map(user => user.userId)}
-          onSelect={this.onSelect}
-        />
-        <ConnectionInfo friendList={this.state.approverList} />
+        <div className="row center">
+          <div className="col s12 m12 col-content center">
+            <ul>
+              <li>
+                <h3 className="teal-text">You</h3>
+              </li>
+              <li>
+                <h2>{username}</h2>
+              </li>
+              <li>{userId}</li>
+            </ul>
+          </div>
+          <Autocomplete
+            suggestions={this.state.userList.map(user => user.userId)}
+            onSelect={this.onSelect}
+          />
+          <ConnectionInfo
+            approverList={this.state.approverList}
+            removeApprover={this.removeApprover}
+          />
+        </div>
       </div>
     );
   }

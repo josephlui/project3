@@ -1,7 +1,6 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 
 class Autocomplete extends Component {
- 
   constructor(props) {
     super(props);
 
@@ -19,7 +18,6 @@ class Autocomplete extends Component {
   }
 
   onChange = e => {
-   
     const { suggestions } = this.props;
     const userInput = e.currentTarget.value;
 
@@ -35,11 +33,9 @@ class Autocomplete extends Component {
       showSuggestions: true,
       userInput: e.currentTarget.value
     });
-   
   };
 
   onClick = e => {
-  
     this.props.onSelect(e.currentTarget.innerText);
     this.setState({
       activeSuggestion: 0,
@@ -47,23 +43,21 @@ class Autocomplete extends Component {
       showSuggestions: false,
       userInput: e.currentTarget.innerText
     });
-    this.setState({userInput: ""});
+    this.setState({ userInput: "" });
   };
 
   onKeyDown = e => {
     const { activeSuggestion, filteredSuggestions } = this.state;
 
-   
     // User pressed the enter key
     if (e.keyCode === 13 && filteredSuggestions[activeSuggestion]) {
       this.setState({
         activeSuggestion: 0,
-        showSuggestions: false,
+        showSuggestions: false
         // userInput: filteredSuggestions[activeSuggestion]
       });
       this.props.onSelect(filteredSuggestions[activeSuggestion]);
-      this.setState({userInput: ""});
-
+      this.setState({ userInput: "" });
     }
     // User pressed the up arrow
     else if (e.keyCode === 38) {
@@ -128,17 +122,22 @@ class Autocomplete extends Component {
     }
 
     return (
-      <Fragment>
+      <div className="col s12 m12 col-content center">
         <div className="form-field">
-  <div className="form-field__control">
-    <input id="fieldInput" type="text"  autoComplete="off" className="form-field__input"
-         onChange={onChange}
-         onKeyDown={onKeyDown}
-         value={userInput} />
-  </div>
-</div>
+          <div className="form-field__control">
+            <input
+              id="fieldInput"
+              type="text"
+              autoComplete="off"
+              className="form-field__input"
+              onChange={onChange}
+              onKeyDown={onKeyDown}
+              value={userInput}
+            />
+          </div>
+        </div>
         {suggestionsListComponent}
-      </Fragment>
+      </div>
     );
   }
 }

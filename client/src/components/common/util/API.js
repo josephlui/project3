@@ -14,6 +14,10 @@ var API = {
     const config = { userId, clientId };
     return axios.put(BASE_USR, config);
   },
+  removeApprover: function(userId, clientId) {
+    const config = { userId, clientId };
+    return axios.delete(BASE_USR + "/" + clientId);
+  },
   registerUser: function(userId, name) {
     const config = { userId, name };
     return axios.post(BASE_USR, config);
