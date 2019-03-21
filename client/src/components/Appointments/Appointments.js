@@ -159,7 +159,7 @@ export default class Appointment extends Component {
   removeEvent(items, item) {
     // console.log ("event removed " + JSON.stringify(item));
     // remove the item from the database using API
-    API.retrieveAppt(item._id)
+    API.retrieveApptById(item._id)
     .then(appt => {
       if (appt.status === 200
          && appt.data.calenderOwnerUserId === this.state.userID) {

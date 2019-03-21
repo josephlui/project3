@@ -10,7 +10,7 @@ module.exports = {
    */
   retrieveById : function (req, res) {
     return db.Appointment.findOne({ 
-      id: req.params.id
+      _id: req.params.id
     })
       .populate("clientId")
       .then(dbModel => res.json(dbModel))
