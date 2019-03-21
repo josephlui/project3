@@ -5,7 +5,6 @@ function onSignIn(googleUser) {
   //  console.log('Image URL: ' + profile.getImageUrl());
   //  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
   var id_token = googleUser.getAuthResponse().id_token;
-  alert(id_token);
   var signInUrl =
     window.location.hostname === "localhost"
       ? "http://localhost:3000/api/user/tokensignin"
@@ -22,8 +21,6 @@ function onSignIn(googleUser) {
   $.post(signInUrl, { idtoken: id_token })
     .done(function(data) {
       sessionStorage.setItem("token", data.token);
-      sessionStorage.setItem("sessionToken", data.sessionToken);
-      alert(data.sessionToken);
       window.location.href = redirectUrl;
     })
     .catch(function(err) {
