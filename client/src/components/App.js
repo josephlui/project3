@@ -16,27 +16,29 @@ import Logout from "./common/Logout";
 const App = () => {
   return (
     <div id="app">
-      {/* Home NavBar */}
-      <Route path="/" exact component={Navbar} />
-
-      {/* Sub NavBar Links*/}
-      <Route path="/appointments" exact component={NavbarPages} />
-      <Route path="/connections" exact component={NavbarPages} />
-      <Route path="/login" exact component={NavbarPages} />
-      <Route path="/logout" exact component={NavbarPages} />
-      <Route path="/logout" exact component={Logout} />
-      {/* Home NavBar Links */}
-      <Route path="/appointments" exact component={Appointments} />
-      <Route path="/connections" exact component={Connections} />
-      <Route path="/login" exact component={Login} />
-      <Route path="/register" exact component={Register} />
-      <Route path="/logout" exact component={Logout} />
-
       {/* Home Page */}
+      <Route path="/" exact component={Navbar} />
       <Route path="/" exact component={Hero} />
       <Route path="/" exact component={Exemplar} />
       <Route path="/" exact component={Features} />
       <Route path="/" exact component={SocialBrand} />
+
+      {/* Login */}
+      <Route path="/login" exact component={NavbarPages} />
+      <Route path="/login" exact component={Login} />
+      <Route path="/register" exact component={Register} />
+
+      {/* Appointments Page */}
+      <Route path="/appointments" exact component={NavbarPages} />
+      <Route path="/appointments" exact component={Appointments} />
+
+      {/* Connections Page */}
+      <Route path="/connections" exact component={NavbarPages} />
+      <Route path="/connections" exact component={Connections} />
+
+      {/* Logout */}
+      <Route path="/logout" exact component={NavbarPages} />
+      <Route path="/logout" exact component={Logout} />
 
       {/* Global Footer */}
       <Footer />

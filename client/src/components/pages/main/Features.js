@@ -1,5 +1,7 @@
 import React from "react";
 import Judy from "./judy.jpg";
+import Saumil from "./saumil.jpg";
+import Tahreem from "./tahreem.jpg";
 
 const Features = () => {
   return (
@@ -10,8 +12,8 @@ const Features = () => {
           <div className="col m6 center-align">
             <h2>About Us</h2>
             <p>
-              Our team developed an amazing combination of vast functionality
-              and user's comfort on an accessible platform.
+              Our team started with the vision of providing a sleek and user
+              friendly experience for booking business meetings <br />
             </p>
           </div>
           <div className="col m3" />
@@ -20,28 +22,27 @@ const Features = () => {
           <div className="col m3">
             <i className="material-icons">create</i>
             <h5>Joseph Lui </h5>
-            <p>Back-end</p>
+            <p>CTO</p>
           </div>
           <div className="col m3">
             {/* <i className="material-icons">devices</i> */}
-            <img className="profileShot" src={Judy} />
+            <img className="profileShot" src={Tahreem} />
             <h5>Tahreem Butt</h5>
-            <p>Front-end</p>
+            <p>Product Manager</p>
           </div>
           <div className="col m3">
             {/* <i className="material-icons">build</i> */}
+            <img className="profileShot" src={Saumil} />
             <h5>Saumil Bapat</h5>
-            <p>Back-end</p>
+            <p>Customer Experience</p>
           </div>
           <div className="col m3">
             {/* <i className="material-icons">mood</i> */}
             {/* <Col xs={6} md={4}> */}
             <img className="profileShot" src={Judy} />
             {/* </Col> */}
-
-            <i className="material-icons">mood</i>
             <h5>Judy Hu</h5>
-            <p>Front-end</p>
+            <p>Principle Designer</p>
           </div>
         </div>
       </div>
