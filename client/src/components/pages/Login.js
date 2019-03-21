@@ -16,9 +16,12 @@ firebase.initializeApp(config);
 
 class Login extends React.Component {
   // The component's Local state.
-  state = {
-    isSignedIn: false // Local signed-in state.
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      isSignedIn: false // Local signed-in state.
+    };
+  }
 
   // Configure FirebaseUI.
   uiConfig = {
@@ -51,12 +54,10 @@ class Login extends React.Component {
     if (!this.state.isSignedIn) {
       return (
         <div>
-          <h1>My App</h1>
-          <p>Please sign-in:</p>
-
           <div id="firebaseui_container">
             <div className="firebaseui-container firebaseui-page-provider-sign-in firebaseui-id-page-provider-sign-in firebaseui-use-spinner">
-              <div className="firebaseui-card-content">
+              <div className="firebaseui-card-content center">
+                <h3>Please Sign-In</h3>
                 <ul className="firebaseui-idp-list">
                   <li className="firebaseui-list-item">
                     <button
@@ -72,20 +73,12 @@ class Login extends React.Component {
                           src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
                         />
                       </span>
-                      <span className="firebaseui-idp-text firebaseui-idp-text-long">
-                        Sign in with Google
-                      </span>
-                      <span className="firebaseui-idp-text firebaseui-idp-text-short">
-                        Google
-                      </span>
                     </button>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
-
-          {/* <div className="g-signin2" data-onsuccess="onSignIn" /> */}
 
           <StyledFirebaseAuth
             uiConfig={this.uiConfig}

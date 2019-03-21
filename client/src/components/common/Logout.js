@@ -1,14 +1,11 @@
 import React from "react";
-import API from "../common/util/API"
-import {  Redirect } from 'react-router'
+import API from "../common/util/API";
+import { Redirect } from "react-router";
 
 class Logout extends React.Component {
-
   componentDidMount() {
-      
-     API.logout()
+    sessionStorage.clear();
   }
-    
 
   render() {
     return <Redirect to="/" />;
