@@ -101,7 +101,7 @@ export default class Appointment extends Component {
     API.retrieveAppt(item._id)
     .then(appt => {
       if (appt.status === 200
-         && result.data.calenderOwnerUserId === this.state.userID) {
+         && appt.data.calenderOwnerUserId === this.state.userID) {
           if (item && openModal === true) {
             this.setState({ selected: [item] });
             return this._openModal();
@@ -161,7 +161,7 @@ export default class Appointment extends Component {
     API.retrieveAppt(item._id)
     .then(appt => {
       if (appt.status === 200
-         && result.data.calenderOwnerUserId === this.state.userID) {
+         && appt.data.calenderOwnerUserId === this.state.userID) {
           API.removeAppt(item._id).then(result => {
             this.setState({ items: items });
           });
