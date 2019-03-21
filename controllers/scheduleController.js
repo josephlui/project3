@@ -2,21 +2,28 @@ const db = require("../models");
 const ObjectId = require("mongodb").ObjectID;
 
 module.exports = {
-
   /**
    * Retrieve appointment by appointment id
-   * @param {*} req 
-   * @param {*} res 
+   * @param {*} req
+   * @param {*} res
    */
-  retrieveById : function (req, res) {
-    return db.Appointment.findOne({ 
-      id: req.params.id
+  retrieveById: function(req, res) {
+    console.log("---retrieveById---");
+
+    return db.Appointment.findOne({
+      _id: req.params.id
     })
       .populate("clientId")
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      .then(dbModel => {
+        console.log(dbModel);
+        res.json(dbModel);
+      })
+      .catch(err => {
+        console.log("---err---");
+        console.log(err);
+        res.status(422).json(err);
+      });
   },
-
 
   /**
    * Retrieves appointment by client id

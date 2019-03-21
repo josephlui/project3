@@ -97,19 +97,19 @@ export default class Appointment extends Component {
   }
   handleItemEdit(item, openModal) {
     console.log("handle Item Edit " + JSON.stringify(item));
-    // 
-    API.retrieveApptById(item._id)
-    .then(appt => {
-       console.log (JSON.stringify(appt));
-      if (appt.status === 200
-         && appt.data.calenderOwnerUserId === this.state.userID) {
-          if (item && openModal === true) {
-            this.setState({ selected: [item] });
-            return this._openModal();
-          }
+    //
+    API.retrieveApptById(item._id).then(appt => {
+      console.log(JSON.stringify(appt));
+      if (
+        appt.status === 200 &&
+        appt.data.calenderOwnerUserId === this.state.userID
+      ) {
+        if (item && openModal === true) {
+          this.setState({ selected: [item] });
+          return this._openModal();
+        }
       }
-
-    })
+    });
   }
   handleCellSelection(item, openModal) {
     console.log("handle cell selection " + item);
@@ -159,15 +159,21 @@ export default class Appointment extends Component {
   removeEvent(items, item) {
     // console.log ("event removed " + JSON.stringify(item));
     // remove the item from the database using API
-    API.retrieveAppt(item._id)
-    .then(appt => {
-      if (appt.status === 200
-         && appt.data.calenderOwnerUserId === this.state.userID) {
+    API.retrieveApptById(item._id)
+      .then(appt => {
+        if (
+          appt.status === 200 &&
+          appt.data.calenderOwnerUserId === this.state.userID
+        ) {
           API.removeAppt(item._id).then(result => {
             this.setState({ items: items });
           });
-      }
-    })
+        }
+      })
+      .catch(ex => {
+        console.log("---ex---");
+        console.log(ex);
+      });
   }
 
   addNewEvent(items, newItems) {
