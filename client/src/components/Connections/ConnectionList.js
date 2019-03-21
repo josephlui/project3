@@ -110,7 +110,7 @@ class ConnectionList extends React.Component {
     console.log("---state user---");
     console.log(this.state.user);
     const username = this.state.user ? this.state.user.name : "no name";
-    const userId = this.state.user ? this.state.user._id : "no id";
+    const userId = this.state.user ? this.state.user.userId : "no id";
     return (
       <div>
         <div className="row center">
