@@ -178,8 +178,8 @@ export default class ConnectionCalendar extends Component {
   addNewEvent(items, newItems) {
     this.setState({ showModal: false, selected: [], items: items });
     this._closeModal();
-    console.log (newItems);
-    console.log (this.state.userId);
+    //console.log (newItems);
+    //console.log (this.state.userId);
     var attendeeIDs = [];
     if (this.state.approverList) {
       this.state.approverList.forEach(user => {
@@ -193,7 +193,7 @@ export default class ConnectionCalendar extends Component {
 
     API.scheduleAppt({
       ...newItems,
-      calendarOwnerUserId: this.state.userID,
+      calendarOwnerUserId: this.state.userId,
       clientId: attendeeIDs[0]
     })
       .then(result => {
