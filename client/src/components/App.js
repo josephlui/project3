@@ -9,7 +9,7 @@ import { Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./Auth/Register";
 import Appointments from "./Appointments/Appointments";
-import Connections from "./Connections/ConnectionInfo";
+import ConnectionList from "./Connections/ConnectionList";
 import NavbarPages from "./pages/main/NavBar/NavBarPages";
 import Logout from "./common/Logout";
 
@@ -34,7 +34,7 @@ const App = () => {
 
       {/* Connections Page */}
       <Route path="/connections" exact component={NavbarPages} />
-      <Route path="/connections" exact component={Connections} />
+      <Route path="/connections" exact component={ConnectionList} />
 
       {/* Logout */}
       <Route path="/logout" exact component={NavbarPages} />

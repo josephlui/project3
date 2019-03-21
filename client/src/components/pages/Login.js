@@ -55,27 +55,27 @@ class Login extends React.Component {
           <p>Please sign-in:</p>
 
           <div id="firebaseui_container">
-            <div class="firebaseui-container firebaseui-page-provider-sign-in firebaseui-id-page-provider-sign-in firebaseui-use-spinner">
-              <div class="firebaseui-card-content">
-                <ul class="firebaseui-idp-list">
-                  <li class="firebaseui-list-item">
+            <div className="firebaseui-container firebaseui-page-provider-sign-in firebaseui-id-page-provider-sign-in firebaseui-use-spinner">
+              <div className="firebaseui-card-content">
+                <ul className="firebaseui-idp-list">
+                  <li className="firebaseui-list-item">
                     <button
-                      class="g-signin2 firebaseui-idp-button mdl-button mdl-js-button mdl-button--raised firebaseui-idp-google firebaseui-id-idp-button"
+                      className="g-signin2 firebaseui-idp-button mdl-button mdl-js-button mdl-button--raised firebaseui-idp-google firebaseui-id-idp-button"
                       data-provider-id="google.com"
                       data-upgraded=",MaterialButton"
                       data-onsuccess="onSignIn"
                     >
-                      <span class="firebaseui-idp-icon-wrapper">
+                      <span className="firebaseui-idp-icon-wrapper">
                         <img
-                          class="firebaseui-idp-icon"
+                          className="firebaseui-idp-icon"
                           alt=""
                           src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
                         />
                       </span>
-                      <span class="firebaseui-idp-text firebaseui-idp-text-long">
+                      <span className="firebaseui-idp-text firebaseui-idp-text-long">
                         Sign in with Google
                       </span>
-                      <span class="firebaseui-idp-text firebaseui-idp-text-short">
+                      <span className="firebaseui-idp-text firebaseui-idp-text-short">
                         Google
                       </span>
                     </button>

@@ -11,11 +11,9 @@ const Hero = () => {
       <div className="container valign-wrapper jc-center">
         <div className="valign center-align white-text">
           <h3>AppointJS</h3>
-          <p className="flowtext hide-on-medium-only white-text">
-            We help you book appointments
-          </p>
-          <br /> <br />
-          <br />
+          {/* <p className="flowtext hide-on-medium-only black-text">
+            Appointment Booking Application
+          </p> */}
           <a href="/login" className="btn waves-light waves-effect m-r-16">
             Log In
           </a>
