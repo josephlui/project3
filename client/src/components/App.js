@@ -24,20 +24,20 @@ const App = () => {
       <Route path="/" exact component={SocialBrand} />
 
       {/* Login */}
-      <Route path="/login" exact component={NavbarPages} />
+      <Route path="/login" exact component={Navbar} />
       <Route path="/login" exact component={Login} />
       <Route path="/register" exact component={Register} />
 
       {/* Appointments Page */}
-      <Route path="/appointments" exact component={NavbarPages} />
+      <Route path="/appointments" exact component={Navbar} />
       <Route path="/appointments" exact component={Appointments} />
 
       {/* Connections Page */}
-      <Route path="/connections" exact component={NavbarPages} />
+      <Route path="/connections" exact component={Navbar} />
       <Route path="/connections" exact component={ConnectionList} />
 
       {/* Logout */}
-      <Route path="/logout" exact component={NavbarPages} />
+      <Route path="/logout" exact component={Navbar} />
       <Route path="/logout" exact component={Logout} />
 
       {/* Global Footer */}
