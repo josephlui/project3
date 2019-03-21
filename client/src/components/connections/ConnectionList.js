@@ -3,6 +3,7 @@ import _ from "lodash";
 import API from "../common/util/API";
 import Autocomplete from "../common/util/AutoComplete";
 import ConnectionInfo from "./ConnectionInfo";
+import ConnectionCalendar from "./ConnectionCalendar";
 
 class ConnectionList extends React.Component {
   state = {
@@ -189,10 +190,17 @@ class ConnectionList extends React.Component {
             suggestions={userSuggestions}
             onSelect={this.onSelect}
           />
-          <ConnectionInfo
-            approverList={this.state.approverList}
-            removeApprover={this.removeApprover}
-          />
+          <div className="col s12 m12 col-content center">
+            {" "}
+            <ConnectionInfo
+              approverList={this.state.approverList}
+              removeApprover={this.removeApprover}
+            />
+          </div>
+          <div className="col s12 m12 col-content center">
+            {" "}
+            <ConnectionCalendar userId={this.state.userId} />
+          </div>
         </div>
       </div>
     );
