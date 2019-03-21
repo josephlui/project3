@@ -191,14 +191,10 @@ export default class ConnectionCalendar extends Component {
         attendeeIDs.push (this.state.userId)
     }
 
-    API.scheduleAppt({...newItems,
-       calendarOwnerUserId: this.state.userID, 
-       clientId: this.state.userID})
-  
     API.scheduleAppt({
       ...newItems,
-      calendarOwnerUserId: this.state.userID._id,
-      clientId: attendeeIDs
+      calendarOwnerUserId: this.state.userID,
+      clientId: attendeeIDs[0]
     })
       .then(result => {
         console.log("Appt added: " + JSON.stringify(result.data));
