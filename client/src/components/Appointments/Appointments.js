@@ -96,10 +96,11 @@ export default class Appointment extends Component {
     }
   }
   handleItemEdit(item, openModal) {
-    console.log("handle Item Edit " + item);
+    console.log("handle Item Edit " + JSON.stringify(item));
     // 
-    API.retrieveAppt(item._id)
+    API.retrieveApptById(item._id)
     .then(appt => {
+       console.log (JSON.stringify(appt));
       if (appt.status === 200
          && appt.data.calenderOwnerUserId === this.state.userID) {
           if (item && openModal === true) {

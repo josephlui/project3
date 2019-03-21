@@ -169,7 +169,7 @@ export default class ConnectionCalendar extends Component {
 
   removeEvent(items, item) {
     // console.log ("event removed " + JSON.stringify(item));
-    // remove the item from the database using API
+
     API.removeAppt(item._id).then(result => {
       this.setState({ items: items });
     });
