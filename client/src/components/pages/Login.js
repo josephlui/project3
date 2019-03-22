@@ -2,6 +2,7 @@
 import React from "react";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import firebase from "firebase";
+import * as firebaseui from 'firebaseui';
 
 // Configure Firebase.
 const config = {
@@ -30,8 +31,13 @@ class Login extends React.Component {
     // We will display Google and Facebook as auth providers.
     signInOptions: [
       //firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      firebase.auth.FacebookAuthProvider.PROVIDER_ID
+      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+      firebase.auth.GithubAuthProvider.PROVIDER_ID,
+      firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID,
+      firebase.auth.PhoneAuthProvider.PROVIDER_ID
     ],
+    defaultCountry: 'CA',
     callbacks: {
       // Avoid redirects after sign-in.
       signInSuccessWithAuthResult: () => false
@@ -94,7 +100,7 @@ class Login extends React.Component {
           Welcome {firebase.auth().currentUser.displayName}! You are now
           signed-in!
         </p>
-        <a href="#" onClick={() => firebase.auth().signOut()}>
+        <a href="/" onClick={() => firebase.auth().signOut()}>
           Sign-out
         </a>
         <div className="g-signin2" data-onsuccess="onSignIn" />
