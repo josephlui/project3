@@ -5,12 +5,19 @@ const scheduleController = require("../../controllers/scheduleController");
 router.route("/").post(scheduleController.create);
 
 // Matches with "/api/schedule/:id"
-router.route("/:id").put(scheduleController.update);
+router.route("/:id")
+    .put(scheduleController.update)
+    .get(scheduleController.retrieveById);
 
 // Matches with "/api/schedule/userId/:date"
 router.route("/:id/:date").get(scheduleController.retrieveAppt);
 
 // Matches with "/api/schedule/All"
 router.route("/All").post(scheduleController.retrieveAllAppt);
+
+// Matches with "/api/schedule/delete"
+router.route("/delete")
+  .delete(scheduleController.removeAppt);
+
 
 module.exports = router;

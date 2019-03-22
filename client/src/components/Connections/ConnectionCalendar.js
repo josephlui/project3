@@ -170,34 +170,72 @@ export default class ConnectionCalendar extends Component {
   removeEvent(items, item) {
     // console.log ("event removed " + JSON.stringify(item));
     // remove the item from the database using API
-    API.removeAppt(item._id).then(result => {
-      this.setState({ items: items });
-    });
+    API.retrieveApptById(item._id.toString())
+      .then(appt => {
+        if (
+          appt.status === 200 &&
+          appt.data.calenderOwnerUserId === this.state.userID
+        ) {
+          API.removeAppt(item._id.toString()).then(result => {
+            this.setState({ items: items });
+          });
+        }
+      })
+      .catch(ex => {
+        console.log("---ex---");
+        console.log(ex);
+      });
   }
 
   addNewEvent(items, newItems) {
     this.setState({ showModal: false, selected: [], items: items });
     this._closeModal();
+    //console.log (newItems);
+    //console.log (this.state.userId);
+    var attendeeIDs = [];
+    if (this.state.approverList) {
+      this.state.approverList.forEach(user => {
+        // for now assume single attendee, booking another attendee
+        attendeeIDs.push(user._id);
+      });
+    } else {
+      // self booking
+      attendeeIDs.push(this.state.userId);
+    }
+
     API.scheduleAppt({
       ...newItems,
-      calendarOwnerUserId: this.state.userID,
-      clientId: this.state.userID
+      calendarOwnerUserId: this.state.userId,
+      clientId: attendeeIDs[0]
     })
       .then(result => {
         console.log("Appt added: " + JSON.stringify(result.data));
       })
       .catch(err => console.log("Error adding new appointment: " + err));
   }
+
   editEvent(items, item) {
-    console.log("edit event " + JSON.stringify(item));
-    this.setState({ showModal: false, selected: [], items: items });
-    this._closeModal();
-    API.updateAppt(item)
-      .then(result => {
-        console.log("Appt updated: " + JSON.stringify(result.data));
+    API.retrieveApptById(item._id.toString())
+      .then(appt => {
+        if (
+          appt.status === 200 &&
+          appt.data.calenderOwnerUserId === this.state.userID
+        ) {
+          console.log("edit event " + JSON.stringify(item));
+          this.setState({ showModal: false, selected: [], items: items });
+          this._closeModal();
+          API.updateAppt(item)
+            .then(result => {
+              console.log("Appt updated: " + JSON.stringify(result.data));
+            })
+            .catch(err => {
+              console.log("Error updating appointment detail " + err);
+            });
+        }
       })
-      .catch(err => {
-        console.log("Error updating appointment detail " + err);
+      .catch(ex => {
+        console.log("---ex---");
+        console.log(ex);
       });
   }
 

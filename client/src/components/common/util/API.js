@@ -51,6 +51,9 @@ var API = {
   retrieveAppt: function(id, date) {
     return axios.get(BASE_APPT + "/" + id + "/" + date);
   },
+  retrieveApptById: function(id) {
+    return axios.get(BASE_APPT + "/" + id);
+  },
   retrieveAllAppt: function(userIds, date) {
     const config = {
       userIds: userIds,

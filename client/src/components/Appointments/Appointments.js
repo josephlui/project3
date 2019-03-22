@@ -96,11 +96,20 @@ export default class Appointment extends Component {
     }
   }
   handleItemEdit(item, openModal) {
-    console.log("handle Item Edit " + item);
-    if (item && openModal === true) {
-      this.setState({ selected: [item] });
-      return this._openModal();
-    }
+    console.log("handle Item Edit " + JSON.stringify(item));
+    //
+    API.retrieveApptById(item._id).then(appt => {
+      console.log(JSON.stringify(appt));
+      if (
+        appt.status === 200 &&
+        appt.data.calenderOwnerUserId === this.state.userID
+      ) {
+        if (item && openModal === true) {
+          this.setState({ selected: [item] });
+          return this._openModal();
+        }
+      }
+    });
   }
   handleCellSelection(item, openModal) {
     console.log("handle cell selection " + item);
@@ -150,9 +159,21 @@ export default class Appointment extends Component {
   removeEvent(items, item) {
     // console.log ("event removed " + JSON.stringify(item));
     // remove the item from the database using API
-    API.removeAppt(item._id).then(result => {
-      this.setState({ items: items });
-    });
+    API.retrieveApptById(item._id.toString())
+      .then(appt => {
+        if (
+          appt.status === 200 &&
+          appt.data.calenderOwnerUserId === this.state.userID
+        ) {
+          API.removeAppt(item._id.toString()).then(result => {
+            this.setState({ items: items });
+          });
+        }
+      })
+      .catch(ex => {
+        console.log("---ex---");
+        console.log(ex);
+      });
   }
 
   addNewEvent(items, newItems) {
@@ -168,16 +189,29 @@ export default class Appointment extends Component {
       })
       .catch(err => console.log("Error adding new appointment: " + err));
   }
+
   editEvent(items, item) {
-    console.log("edit event " + JSON.stringify(item));
-    this.setState({ showModal: false, selected: [], items: items });
-    this._closeModal();
-    API.updateAppt(item)
-      .then(result => {
-        console.log("Appt updated: " + JSON.stringify(result.data));
+    API.retrieveApptById(item._id.toString())
+      .then(appt => {
+        if (
+          appt.status === 200 &&
+          appt.data.calenderOwnerUserId === this.state.userID
+        ) {
+          console.log("edit event " + JSON.stringify(item));
+          this.setState({ showModal: false, selected: [], items: items });
+          this._closeModal();
+          API.updateAppt(item)
+            .then(result => {
+              console.log("Appt updated: " + JSON.stringify(result.data));
+            })
+            .catch(err => {
+              console.log("Error updating appointment detail " + err);
+            });
+        }
       })
-      .catch(err => {
-        console.log("Error updating appointment detail " + err);
+      .catch(ex => {
+        console.log("---ex---");
+        console.log(ex);
       });
   }
 
