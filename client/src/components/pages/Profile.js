@@ -87,7 +87,7 @@ componentWillReceiveProps(next , last){
 }
   handleItemEdit(item, openModal) {
 
-    console.log ("handle Item Edit " +item);
+    console.log ("handle Item Edit xxxx " +item);
     if(item && openModal === true){
       this.setState({selected:[item] })
       return this._openModal();

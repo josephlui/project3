@@ -5,7 +5,7 @@ import { ReactAgenda, ReactAgendaCtrl, Modal } from "react-agenda";
 require("moment/locale/en-ca.js");
 var moment = require("moment");
 
-var now = new Date();
+var now =   new Date();
 var colors = {
   "color-1": "rgba(102, 195, 131 , 1)",
   "color-2": "rgba(242, 177, 52, 1)",
@@ -96,13 +96,14 @@ export default class Appointment extends Component {
     }
   }
   handleItemEdit(item, openModal) {
-    console.log("handle Item Edit " + JSON.stringify(item));
+    console.log("handle Item Edit appointments.js " + JSON.stringify(item));
     //
+    console.log ('userID' + this.state.userID);
     API.retrieveApptById(item._id).then(appt => {
-      console.log(JSON.stringify(appt));
+     console.log(JSON.stringify(appt));
       if (
         appt.status === 200 &&
-        appt.data.calenderOwnerUserId === this.state.userID
+        appt.data[0].calenderOwnerUserId === this.state.userID
       ) {
         if (item && openModal === true) {
           this.setState({ selected: [item] });
@@ -161,6 +162,8 @@ export default class Appointment extends Component {
     // remove the item from the database using API
     API.retrieveApptById(item._id.toString())
       .then(appt => {
+
+        console.log ('appt ' + appt);
         if (
           appt.status === 200 &&
           appt.data.calenderOwnerUserId === this.state.userID
@@ -191,8 +194,10 @@ export default class Appointment extends Component {
   }
 
   editEvent(items, item) {
-    API.retrieveApptById(item._id.toString())
+    console.log (this.state.userID);
+    API.retrieveApptById(item._id)
       .then(appt => {
+        console.log (appt);
         if (
           appt.status === 200 &&
           appt.data.calenderOwnerUserId === this.state.userID

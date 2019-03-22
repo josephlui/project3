@@ -1,5 +1,5 @@
 const db = require("../models");
-const ObjectId = require("mongodb").ObjectID;
+const ObjectId = require("mongoose").Types.ObjectId;
 
 module.exports = {
   /**
@@ -8,8 +8,10 @@ module.exports = {
    * @param {*} res
    */
   retrieveById: function(req, res) {
+    console.log ("request id " , req.params.id);
+    // db.appointments.find({_id: ObjectId("5c9437cffcc9444356a9de43")})
     return db.Appointment.find({
-      _id: req.params.id
+      _id: new ObjectId(req.params.id)
     })
       .populate("clientId")
       .then(dbModel => {
