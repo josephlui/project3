@@ -8,8 +8,6 @@ module.exports = {
    * @param {*} res
    */
   retrieveById: function(req, res) {
-    console.log("---retrieveById---");
-
     return db.Appointment.findOne({
       _id: req.params.id
     })
