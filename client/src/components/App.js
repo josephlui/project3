@@ -11,6 +11,7 @@ import Register from "./Auth/Register";
 import Appointments from "./Appointments/Appointments";
 import ConnectionList from "./Connections/ConnectionList";
 import Logout from "./common/Logout";
+import PrivacyPolicy from "./PrivacyPolicy";
 
 const App = () => {
   return (
@@ -38,6 +39,9 @@ const App = () => {
       {/* Logout */}
       <Route path="/logout" exact component={Navbar} />
       <Route path="/logout" exact component={Logout} />
+
+      {/* Privacy Policy */}
+      <Route path="/privacypolicy" exact component={PrivacyPolicy} />
 
       {/* Global Footer */}
       <Footer />
