@@ -8,7 +8,7 @@ module.exports = {
    * @param {*} res
    */
   retrieveById: function(req, res) {
-    return db.Appointment.findOne({
+    return db.Appointment.find({
       _id: req.params.id
     })
       .populate("clientId")

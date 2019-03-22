@@ -176,7 +176,7 @@ export default class ConnectionCalendar extends Component {
           appt.status === 200 &&
           appt.data.calenderOwnerUserId === this.state.userID
         ) {
-          API.removeAppt(item._id).then(result => {
+          API.removeAppt(item._id.toString()).then(result => {
             this.setState({ items: items });
           });
         }
@@ -213,16 +213,29 @@ export default class ConnectionCalendar extends Component {
       })
       .catch(err => console.log("Error adding new appointment: " + err));
   }
+
   editEvent(items, item) {
-    console.log("edit event " + JSON.stringify(item));
-    this.setState({ showModal: false, selected: [], items: items });
-    this._closeModal();
-    API.updateAppt(item)
-      .then(result => {
-        console.log("Appt updated: " + JSON.stringify(result.data));
+    API.retrieveApptById(item._id.toString())
+      .then(appt => {
+        if (
+          appt.status === 200 &&
+          appt.data.calenderOwnerUserId === this.state.userID
+        ) {
+          console.log("edit event " + JSON.stringify(item));
+          this.setState({ showModal: false, selected: [], items: items });
+          this._closeModal();
+          API.updateAppt(item)
+            .then(result => {
+              console.log("Appt updated: " + JSON.stringify(result.data));
+            })
+            .catch(err => {
+              console.log("Error updating appointment detail " + err);
+            });
+        }
       })
-      .catch(err => {
-        console.log("Error updating appointment detail " + err);
+      .catch(ex => {
+        console.log("---ex---");
+        console.log(ex);
       });
   }
 
