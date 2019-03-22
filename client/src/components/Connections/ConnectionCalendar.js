@@ -169,10 +169,22 @@ export default class ConnectionCalendar extends Component {
 
   removeEvent(items, item) {
     // console.log ("event removed " + JSON.stringify(item));
-
-    API.removeAppt(item._id).then(result => {
-      this.setState({ items: items });
-    });
+    // remove the item from the database using API
+    API.retrieveApptById(item._id.toString())
+      .then(appt => {
+        if (
+          appt.status === 200 &&
+          appt.data.calenderOwnerUserId === this.state.userID
+        ) {
+          API.removeAppt(item._id).then(result => {
+            this.setState({ items: items });
+          });
+        }
+      })
+      .catch(ex => {
+        console.log("---ex---");
+        console.log(ex);
+      });
   }
 
   addNewEvent(items, newItems) {
@@ -183,12 +195,12 @@ export default class ConnectionCalendar extends Component {
     var attendeeIDs = [];
     if (this.state.approverList) {
       this.state.approverList.forEach(user => {
-          // for now assume single attendee, booking another attendee
-          attendeeIDs.push(user._id);
-        });
+        // for now assume single attendee, booking another attendee
+        attendeeIDs.push(user._id);
+      });
     } else {
-        // self booking
-        attendeeIDs.push (this.state.userId)
+      // self booking
+      attendeeIDs.push(this.state.userId);
     }
 
     API.scheduleAppt({
