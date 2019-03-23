@@ -98,19 +98,12 @@ export default class Appointment extends Component {
   handleItemEdit(item, openModal) {
     console.log("handle Item Edit appointments.js " + JSON.stringify(item));
     //
-    console.log ('userID' + this.state.userID);
-    API.retrieveApptById(item._id).then(appt => {
-     console.log(JSON.stringify(appt));
-      if (
-        appt.status === 200 &&
-        appt.data[0].calenderOwnerUserId === this.state.userID
-      ) {
+   
         if (item && openModal === true) {
           this.setState({ selected: [item] });
           return this._openModal();
         }
-      }
-    });
+      
   }
   handleCellSelection(item, openModal) {
     console.log("handle cell selection " + item);
@@ -180,7 +173,8 @@ export default class Appointment extends Component {
   }
 
   addNewEvent(items, newItems) {
-    this.setState({ showModal: false, selected: [], items: items });
+   
+    this.setState({ showModal: false, selected: []});
     this._closeModal();
     API.scheduleAppt({
       ...newItems,
@@ -188,7 +182,13 @@ export default class Appointment extends Component {
       clientId: this.state.userID
     })
       .then(result => {
-        console.log("Appt added: " + JSON.stringify(result.data));
+
+        var index = _.findIndex (items, (item) => {
+          return item._id === newItems._id
+        }
+        );
+        items[index] = {...items[index], _id: result.data._id };
+        this.setState({ items: items });
       })
       .catch(err => console.log("Error adding new appointment: " + err));
   }

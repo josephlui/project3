@@ -10,7 +10,7 @@ module.exports = {
   retrieveById: function(req, res) {
     console.log ("request id " , req.params.id);
     // db.appointments.find({_id: ObjectId("5c9437cffcc9444356a9de43")})
-    return db.Appointment.find({
+    return db.Appointment.findOne({
       _id: new ObjectId(req.params.id)
     })
       .populate("clientId")
@@ -103,11 +103,12 @@ module.exports = {
     // TODO: this needs to be wrapped in a transaction for atomicity
     db.Appointment.create(req.body)
       .then(dbModel => {
-        return db.User.updateMany(
+        db.User.updateMany(
           { _id: { $in: [req.body.ownerUserId, req.body.clientId] } },
           { $push: { appointmentBookingList: dbModel._id } },
           { new: true }
-        );
+        )
+        return dbModel;
       })
       .then(updateResult => res.json(updateResult))
       .catch(err => res.status(422).json(err));
