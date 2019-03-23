@@ -5,7 +5,7 @@ import { ReactAgenda, ReactAgendaCtrl, Modal } from "react-agenda";
 require("moment/locale/en-ca.js");
 var moment = require("moment");
 
-var now = new Date();
+var now =   new Date();
 var colors = {
   "color-1": "rgba(102, 195, 131 , 1)",
   "color-2": "rgba(242, 177, 52, 1)",
@@ -71,7 +71,6 @@ export default class Appointment extends Component {
         if (result.status === 200) {
           //userId = "5c89c22c6611afbd926c61d7";
           // sessionStorage.setItem("token", JSON.stringify(result.data));
-          console.log(result.data);
           items = _.map(result.data, booking => {
             var start = new Date(booking.startDate);
             var end = new Date(booking.endDate);
@@ -96,20 +95,12 @@ export default class Appointment extends Component {
     }
   }
   handleItemEdit(item, openModal) {
-    console.log("handle Item Edit " + JSON.stringify(item));
-    //
-    API.retrieveApptById(item._id).then(appt => {
-      console.log(JSON.stringify(appt));
-      if (
-        appt.status === 200 &&
-        appt.data.calenderOwnerUserId === this.state.userID
-      ) {
+   
         if (item && openModal === true) {
           this.setState({ selected: [item] });
           return this._openModal();
         }
-      }
-    });
+      
   }
   handleCellSelection(item, openModal) {
     console.log("handle cell selection " + item);
@@ -161,6 +152,8 @@ export default class Appointment extends Component {
     // remove the item from the database using API
     API.retrieveApptById(item._id.toString())
       .then(appt => {
+
+        console.log ('appt ' + appt);
         if (
           appt.status === 200 &&
           appt.data.calenderOwnerUserId === this.state.userID
@@ -177,7 +170,8 @@ export default class Appointment extends Component {
   }
 
   addNewEvent(items, newItems) {
-    this.setState({ showModal: false, selected: [], items: items });
+   
+    this.setState({ showModal: false, selected: []});
     this._closeModal();
     API.scheduleAppt({
       ...newItems,
@@ -185,19 +179,24 @@ export default class Appointment extends Component {
       clientId: this.state.userID
     })
       .then(result => {
-        console.log("Appt added: " + JSON.stringify(result.data));
+
+        var index = _.findIndex (items, (item) => {
+          return item._id === newItems._id
+        }
+        );
+        items[index] = {...items[index], _id: result.data._id };
+        this.setState({ items: items });
       })
       .catch(err => console.log("Error adding new appointment: " + err));
   }
 
   editEvent(items, item) {
-    API.retrieveApptById(item._id.toString())
+    API.retrieveApptById(item._id)
       .then(appt => {
         if (
           appt.status === 200 &&
           appt.data.calenderOwnerUserId === this.state.userID
         ) {
-          console.log("edit event " + JSON.stringify(item));
           this.setState({ showModal: false, selected: [], items: items });
           this._closeModal();
           API.updateAppt(item)

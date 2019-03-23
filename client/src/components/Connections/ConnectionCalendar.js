@@ -115,7 +115,7 @@ export default class ConnectionCalendar extends Component {
   }
 
   handleItemEdit(item, openModal) {
-    console.log("handle Item Edit " + item);
+    console.log("handle Item Edit connectionCalendar" + item);
     if (item && openModal === true) {
       this.setState({ selected: [item] });
       return this._openModal();
@@ -215,6 +215,7 @@ export default class ConnectionCalendar extends Component {
   }
 
   editEvent(items, item) {
+    console.log ('yyyyyy' + this.state.userID);
     API.retrieveApptById(item._id.toString())
       .then(appt => {
         if (
