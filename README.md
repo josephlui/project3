@@ -9,7 +9,7 @@ Our team started with the vision of making booking your next appointment simple.
 ## How It Works
 
 - Login on the landing page using the "Login" button on either the navigation bar or on top of the picture
-- Once directed to the login page, click the "Gmail" or "Facebook" option to sign in with an account
+- Once directed to the login page, click the "Gmail", "Facebook", "Github", "Email", "Guest" or "Phone" option to sign in
 - Appointments can be booked by clicking a slot on the calendar, options are provided for start and ends date, as well as choosing different different views (one to seven days). You can also customize your event by selecting a variety of colours.
 - By choosing "My Calendar" on the navigation bar, the user is able to view their own calendar events.
 - Users can also interact with other people on the website, when clicking "Book Meeting", users can add people for events and different caldendars can overlap with each other.
