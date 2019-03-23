@@ -208,7 +208,6 @@ export default class ConnectionCalendar extends Component {
   }
 
   editEvent(items, item) {
-    console.log ('yyyyyy' + this.state.userId);
    
           this.setState({ showModal: false, selected: [], items: items });
           this._closeModal();
