@@ -64,7 +64,8 @@ module.exports = {
     //   var tmp = '5c89c22c6611afbd926c61d7';
     //   // var d = new Date(req.params.date);
     //   // console.log (d);
-    var ids = req.body.userIds;
+    var ids = JSON.stringify(req.body.userIds);
+    ids = JSON.parse(ids);
     var obj_ids = ids.map(function(id) {
       return ObjectId(id);
     });
