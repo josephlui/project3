@@ -3,16 +3,18 @@ import React from "react";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import firebase from "firebase";
 import * as firebaseui from 'firebaseui';
+require('dotenv').config();
 
 // Configure Firebase.
 const config = {
-  apiKey: "AIzaSyA2ZZ3rSSFBbbsDb49MwceKMsc3K9Jfcd0",
-  authDomain: "project3-8b62e.firebaseapp.com",
-  databaseURL: "https://project3-8b62e.firebaseio.com",
-  projectId: "project3-8b62e",
-  storageBucket: "project3-8b62e.appspot.com",
-  messagingSenderId: "1087238829207"
+  apiKey: process.env.REACT_APP_APIKEY,
+  authDomain: process.env.REACT_APP_AUTHDOMAIN,
+  databaseURL: process.env.REACT_APP_DATABASEURL,
+  projectId: process.env.REACT_APP_PROJECTID,
+  storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID
 };
+
 firebase.initializeApp(config);
 
 class Login extends React.Component {
@@ -37,7 +39,7 @@ class Login extends React.Component {
       firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID,
       firebase.auth.PhoneAuthProvider.PROVIDER_ID
     ],
-    defaultCountry: 'CA',
+    // defaultCountry: 'CA',
     callbacks: {
       // Avoid redirects after sign-in.
       signInSuccessWithAuthResult: () => false
