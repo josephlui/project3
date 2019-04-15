@@ -17,13 +17,13 @@ function onSignIn(googleUser) {
 
   var auth2 = gapi.auth2.getAuthInstance();
   auth2.disconnect();
+  var token = sessionStorage.getItem("token");
 
-  $.post(signInUrl, { idtoken: id_token })
-    .done(function(data) {
-      sessionStorage.setItem("token", data.token);
+  $.post(signInUrl, { idtoken: id_token, token: token })
+    .done(function (data) {
       window.location.href = redirectUrl;
     })
-    .catch(function(err) {
+    .catch(function (err) {
       console.log(err.getMessage());
       console.log("error caught, invalid token!");
     });

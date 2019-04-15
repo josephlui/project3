@@ -9,7 +9,7 @@ router
   .get(userController.retrieveAll);
 
 // Matches with "/api/user/:id"
-router.route("/:id").get(userController.findByTokenId);
+router.route("/:id").get(userController.findUserByToken);
 
 // Matches with "/api/user/tokensignin"
 router.route("/tokensignin").post(userController.validateOauthID);

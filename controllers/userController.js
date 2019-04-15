@@ -114,21 +114,13 @@ module.exports = {
    * @param {*} res
    */
   validateOauthID: function(req, res) {
-    var token = "";
-    // test code
-    // return new Promise ((resolve, reject ) => {
-    //   token="abc1234def";
-    //   resolve({given_name: "f",email: "f@gmail.com"})})
+    var token = req.body.token;
     verify(req.body.idtoken)
       .then(result => {
-        console.log(
-          "result from firebase validate function: " + JSON.stringify(result)
-        );
         //console.log ("result from firebase" + JSON.stringify(result));
         if (!(result.name && result.email && result.email_verified)) {
           throw err("invalid token");
         }
-        token = result.sub;
         return result;
       })
       .then(result => findUserByUserId(result.given_name, result.email))

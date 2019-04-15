@@ -12,11 +12,14 @@ import Appointments from "./Appointments/Appointments";
 import ConnectionList from "./Connections/ConnectionList";
 import Logout from "./common/Logout";
 import PrivacyPolicy from "./PrivacyPolicy";
+// import { Link } from 'react-router-dom';
 
 const App = () => {
+
   return (
     <div id="app">
       {/* Home Page */}
+
       <Route path="/" exact component={Navbar} />
       <Route path="/" exact component={Hero} />
       <Route path="/" exact component={Exemplar} />
@@ -26,6 +29,11 @@ const App = () => {
       {/* Login */}
       <Route path="/login" exact component={Navbar} />
       <Route path="/login" exact component={Login} />
+      {/* <Link to={{
+        pathname: '/login',
+        // state: { fromDashboard: true }
+      }} /> */}
+
       <Route path="/register" exact component={Register} />
 
       {/* Appointments Page */}
